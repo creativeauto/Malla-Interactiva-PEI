@@ -213,10 +213,4 @@ button{
 .titulo-anio{
   background: rgba(255,255,255,.12);
 }
-.titulo-anio::after,
-.titulo-semestre::after{
-  content: "Click";
-  font-size: .55rem;
-  margin-left: .3rem;
-  opacity: .6;
-}
+
