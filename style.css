@@ -130,10 +130,12 @@ button{
 
 
 .materia-nombre{
-  font-size: .85rem;
-  font-weight: 600;
-  line-height: 1.15;
+  padding-right: 2.4rem;  /* deja espacio para la sigla */
+  display: block;
+  font-size: .85rem;     /* un poco más grande, se lee mejor */
+  line-height: 1.2;
 }
+
 
 .materia-sigla{
   position: absolute;
