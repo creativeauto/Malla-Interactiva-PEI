@@ -36,42 +36,11 @@ const puede=n=>(prereq[n]||[]).every(r=>estado[r]==="aprobada");
 function crearMateria(nombre,id){
   const d=document.createElement("div");
   d.className="materia";
-
   if(estado[id]==="aprobada") d.classList.add("aprobada");
   else if(puede(nombre)) d.classList.add("habilitada");
-
   d.textContent=nombre;
   d.onclick=()=>{
     if(!puede(nombre)) return;
-
-    if(estado[id]){
-      delete estado[id];
-      if(!Object.keys(estado).some(k=>k!==id && k.endsWith(nombre)))
-        delete estado[nombre];
-    }else{
-      estado[id]="aprobada";
-      estado[nombre]="aprobada";
-    }
-
+    estado[id]?delete estado[id]:estado[id]="aprobada";
     localStorage.setItem("estado_malla",JSON.stringify(estado));
     render();
-  };
-  return d;
-}
-
-function actualizarBarra(){
-  const total=estructura.reduce((a,x)=>a+x.s1.length+x.s2.length,0);
-  const ok=Object.keys(estado).filter(k=>estado[k]==="aprobada" && k.includes("-")).length;
-  const p=Math.round(ok/total*100);
-  document.querySelector(".barra-relleno").style.width=p+"%";
-  document.querySelector(".progreso-texto").innerHTML=
-    `Avance de Carrera: <strong>${p}%</strong> (${ok*5} Cr.)`;
-}
-
-function render(){
-  const cont=document.getElementById("malla");
-  cont.innerHTML="";
-  const sem1=["I","III","V","VII","IX"],sem2=["II","IV","VI","VIII","X"];
-
-  estructura.forEach((a,i)=>{
-    const col=document.create
