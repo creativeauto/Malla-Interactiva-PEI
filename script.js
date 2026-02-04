@@ -54,8 +54,8 @@ const infoRequisitos = {
   "Práctica Pedagogía en Inglés III": { requiere: ["Práctica Pedagogía en Inglés II","Teaching and Learning English Primary I"], esRequisitoDe: ["Práctica Pedagogía en Inglés IV"] },
   "Práctica Pedagogía en Inglés IV": { requiere: ["Práctica Pedagogía en Inglés III"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Básica","Práctica Profesional Pedagogía en Inglés Educación Media"] },
 
-  "Classroom Research": { requiere: [], esRequisitoDe: ["Seminar"] },
-  "Seminar": { requiere: ["Classroom Research"], esRequisitoDe: [] },
+  "Classroom Research Seminar": { requiere: [], esRequisitoDe: ["Seminar"] },
+  "Seminar": { requiere: ["Classroom Research Seminar"], esRequisitoDe: [] },
 
   "Evaluación Inglés Nivel B2": { requiere: [], esRequisitoDe: ["Evaluación Inglés Nivel C1"] },
   "Evaluación Inglés Nivel C1": { requiere: ["Evaluación Inglés Nivel B2"], esRequisitoDe: ["Examen de Inglés Nivel C1 o Equivalente"] },
