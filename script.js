@@ -210,4 +210,33 @@ function render() {
     const sems = document.createElement("div");
     sems.className = "semestres";
 
-    [["s1", sem1[i]], ["s2", sem2[i]]].forEach(([s, l]
+    [["s1", sem1[i]], ["s2", sem2[i]]].forEach(([s, l]) => {
+      const c = document.createElement("div");
+      c.className = "semestre-col";
+
+      c.innerHTML = `<h4 class="titulo-semestre">${l}</h4>`;
+
+      const titulo = c.querySelector(".titulo-semestre");
+      titulo.onclick = () => aprobarSemestre(i, s);
+
+      a[s].forEach((m, j) =>
+        c.appendChild(crearMateria(m, `${i}-${s}-${j}|${m}`))
+      );
+
+      sems.appendChild(c);
+    });
+
+    col.appendChild(sems);
+    cont.appendChild(col);
+  });
+
+  actualizarBarra();
+}
+
+window.resetear = () => {
+  localStorage.removeItem("estado_malla");
+  estado = {};
+  render();
+};
+
+render();
