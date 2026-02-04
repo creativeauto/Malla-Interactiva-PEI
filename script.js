@@ -195,14 +195,28 @@ window.resetear=()=>{
 function aprobarSemestre(anioIndex, semestreKey) {
   const ramos = estructura[anioIndex][semestreKey];
 
+  // Ver si TODOS los ramos del semestre ya están aprobados
+  const todosAprobados = ramos.every((nombre, j) => {
+    const id = `${anioIndex}-${semestreKey}-${j}|${nombre}`;
+    return estado[id];
+  });
+
   ramos.forEach((nombre, j) => {
     const id = `${anioIndex}-${semestreKey}-${j}|${nombre}`;
-    estado[id] = true;
+
+    if (todosAprobados) {
+      // Si ya estaban todos aprobados → desmarcar
+      delete estado[id];
+    } else {
+      // Si no → marcar todos como aprobados
+      estado[id] = true;
+    }
   });
 
   localStorage.setItem("estado_malla", JSON.stringify(estado));
   render();
 }
+
 
 render();
 });
