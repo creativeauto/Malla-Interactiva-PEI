@@ -163,12 +163,21 @@ function render(){
     sems.className="semestres";
 
     [["s1",sem1[i]],["s2",sem2[i]]].forEach(([s,l])=>{
-      const c=document.createElement("div");
-      c.className="semestre-col";
-      c.innerHTML=`<h4>${l}</h4>`;
-      a[s].forEach((m,j)=>c.appendChild(crearMateria(m,`${i}-${s}-${j}|${m}`)));
-      sems.appendChild(c);
-    });
+  const c = document.createElement("div");
+  c.className = "semestre-col";
+
+  c.innerHTML = `<h4 class="titulo-semestre">${l}</h4>`;
+
+  const titulo = c.querySelector(".titulo-semestre");
+  titulo.onclick = () => aprobarSemestre(i, s);
+
+  a[s].forEach((m,j) => 
+    c.appendChild(crearMateria(m, `${i}-${s}-${j}|${m}`))
+  );
+
+  sems.appendChild(c);
+});
+
 
     col.appendChild(sems);
     cont.appendChild(col);
@@ -182,6 +191,18 @@ window.resetear=()=>{
   estado={};
   render();
 };
+
+function aprobarSemestre(anioIndex, semestreKey) {
+  const ramos = estructura[anioIndex][semestreKey];
+
+  ramos.forEach((nombre, j) => {
+    const id = `${anioIndex}-${semestreKey}-${j}|${nombre}`;
+    estado[id] = true;
+  });
+
+  localStorage.setItem("estado_malla", JSON.stringify(estado));
+  render();
+}
 
 render();
 });
