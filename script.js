@@ -99,17 +99,17 @@ const estructura=[
   s2:["Literature for Teen Readers (CPC)","Seminar","Práctica Profesional Pedagogía en Inglés Educación Media","Ética Profesional"]}
 ];
 
-let estado=JSON.parse(localStorage.getItem("estado_malla"))||{};
+let estado = JSON.parse(localStorage.getItem("estado_malla")) || {};
 
-const aprobado=n=>Object.keys(estado).some(id=>id.endsWith("|"+n));
-const puede=n=>(prereq[n]||[]).every(r=>aprobado(r));
+const aprobado = n => Object.keys(estado).some(id => id.endsWith("|" + n));
+const puede = n => (prereq[n] || []).every(r => aprobado(r));
 
-function crearMateria(nombre,id){
-  const d=document.createElement("div");
-  d.className="materia";
+function crearMateria(nombre, id) {
+  const d = document.createElement("div");
+  d.className = "materia";
 
-  if(estado[id]) d.classList.add("aprobada");
-  else if(puede(nombre)) d.classList.add("habilitada");
+  if (estado[id]) d.classList.add("aprobada");
+  else if (puede(nombre)) d.classList.add("habilitada");
 
   const info = infoRamos[nombre] || { sigla: "—", creditos: 0 };
 
@@ -121,24 +121,24 @@ function crearMateria(nombre,id){
     <div class="materia-creditos">${info.creditos} cr.</div>
   `;
 
-  d.onclick=()=>{
-    if(!puede(nombre)) return;
-    estado[id]?delete estado[id]:estado[id]=true;
-    localStorage.setItem("estado_malla",JSON.stringify(estado));
+  d.onclick = () => {
+    if (!puede(nombre)) return;
+    estado[id] ? delete estado[id] : estado[id] = true;
+    localStorage.setItem("estado_malla", JSON.stringify(estado));
     render();
   };
 
   return d;
 }
 
-function actualizarBarra(){
-  const totalRamos = estructura.reduce((a,x)=>a + x.s1.length + x.s2.length, 0);
+function actualizarBarra() {
+  const totalRamos = estructura.reduce((a, x) => a + x.s1.length + x.s2.length, 0);
 
   let creditosAprobados = 0;
   Object.keys(estado).forEach(id => {
     const nombre = id.split("|")[1];
     const info = infoRamos[nombre];
-    if(info) creditosAprobados += info.creditos;
+    if (info) creditosAprobados += info.creditos;
   });
 
   const aprobados = Object.keys(estado).length;
@@ -149,69 +149,29 @@ function actualizarBarra(){
     `Avance de Carrera: <strong>${p}%</strong> (${creditosAprobados} Cr.)`;
 }
 
-
-function render(){
-  const cont=document.getElementById("malla");
-  cont.innerHTML="";
-  const sem1=["I","III","V","VII","IX"],sem2=["II","IV","VI","VIII","X"];
-
-  estructura.forEach((a,i)=>{
-    const col=document.createElement("div");
-    col.className="anio";
-    const col = document.createElement("div");
-col.className = "anio";
-col.innerHTML = `<h3 class="titulo-anio">${a.anio}</h3>`;
-
-const tituloAnio = col.querySelector(".titulo-anio");
-tituloAnio.onclick = () => aprobarAnio(i);
-
-    const sems=document.createElement("div");
-    sems.className="semestres";
-
-    [["s1",sem1[i]],["s2",sem2[i]]].forEach(([s,l])=>{
-  const c = document.createElement("div");
-  c.className = "semestre-col";
-
-  c.innerHTML = `<h4 class="titulo-semestre">${l}</h4>`;
-
-  const titulo = c.querySelector(".titulo-semestre");
-  titulo.onclick = () => aprobarSemestre(i, s);
-
-  a[s].forEach((m,j) => 
-    c.appendChild(crearMateria(m, `${i}-${s}-${j}|${m}`))
-  );
-
-  sems.appendChild(c);
-});
-
-
-    col.appendChild(sems);
-    cont.appendChild(col);
-  });
-
-  actualizarBarra();
-}
-
-window.resetear=()=>{
-  localStorage.removeItem("estado_malla");
-  estado={};
-  render();
-};
-
 function aprobarSemestre(anioIndex, semestreKey) {
   const ramos = estructura[anioIndex][semestreKey];
 
-  // Ver si TODOS los ramos del semestre ya están aprobados
   const todosAprobados = ramos.every((nombre, j) => {
     const id = `${anioIndex}-${semestreKey}-${j}|${nombre}`;
     return estado[id];
   });
+
+  ramos.forEach((nombre, j) => {
+    const id = `${anioIndex}-${semestreKey}-${j}|${nombre}`;
+    if (todosAprobados) delete estado[id];
+    else estado[id] = true;
+  });
+
+  localStorage.setItem("estado_malla", JSON.stringify(estado));
+  render();
+}
+
 function aprobarAnio(anioIndex) {
   const s1 = estructura[anioIndex].s1;
   const s2 = estructura[anioIndex].s2;
   const ramos = [...s1, ...s2];
 
-  // Ver si TODOS los ramos del año ya están aprobados
   const todosAprobados = ramos.every((nombre, idx) => {
     const s = idx < s1.length ? "s1" : "s2";
     const j = idx < s1.length ? idx : idx - s1.length;
@@ -219,39 +179,35 @@ function aprobarAnio(anioIndex) {
     return estado[id];
   });
 
-  // Marcar o desmarcar todos
   ramos.forEach((nombre, idx) => {
     const s = idx < s1.length ? "s1" : "s2";
     const j = idx < s1.length ? idx : idx - s1.length;
     const id = `${anioIndex}-${s}-${j}|${nombre}`;
 
-    if (todosAprobados) {
-      delete estado[id];
-    } else {
-      estado[id] = true;
-    }
+    if (todosAprobados) delete estado[id];
+    else estado[id] = true;
   });
 
   localStorage.setItem("estado_malla", JSON.stringify(estado));
   render();
 }
 
-  ramos.forEach((nombre, j) => {
-    const id = `${anioIndex}-${semestreKey}-${j}|${nombre}`;
+function render() {
+  const cont = document.getElementById("malla");
+  cont.innerHTML = "";
 
-    if (todosAprobados) {
-      // Si ya estaban todos aprobados → desmarcar
-      delete estado[id];
-    } else {
-      // Si no → marcar todos como aprobados
-      estado[id] = true;
-    }
-  });
+  const sem1 = ["I", "III", "V", "VII", "IX"];
+  const sem2 = ["II", "IV", "VI", "VIII", "X"];
 
-  localStorage.setItem("estado_malla", JSON.stringify(estado));
-  render();
-}
+  estructura.forEach((a, i) => {
+    const col = document.createElement("div");
+    col.className = "anio";
+    col.innerHTML = `<h3 class="titulo-anio">${a.anio}</h3>`;
 
+    const tituloAnio = col.querySelector(".titulo-anio");
+    tituloAnio.onclick = () => aprobarAnio(i);
 
-render();
-});
+    const sems = document.createElement("div");
+    sems.className = "semestres";
+
+    [["s1", sem1[i]], ["s2", sem2[i]]].forEach(([s, l]
