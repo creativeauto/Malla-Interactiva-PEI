@@ -72,4 +72,3 @@ function resetear(){
  estado={};render();
 }
 render();
-</script>
