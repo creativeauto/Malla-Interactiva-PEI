@@ -158,7 +158,13 @@ function render(){
   estructura.forEach((a,i)=>{
     const col=document.createElement("div");
     col.className="anio";
-    col.innerHTML=`<h3>${a.anio}</h3>`;
+    const col = document.createElement("div");
+col.className = "anio";
+col.innerHTML = `<h3 class="titulo-anio">${a.anio}</h3>`;
+
+const tituloAnio = col.querySelector(".titulo-anio");
+tituloAnio.onclick = () => aprobarAnio(i);
+
     const sems=document.createElement("div");
     sems.className="semestres";
 
@@ -200,6 +206,35 @@ function aprobarSemestre(anioIndex, semestreKey) {
     const id = `${anioIndex}-${semestreKey}-${j}|${nombre}`;
     return estado[id];
   });
+function aprobarAnio(anioIndex) {
+  const s1 = estructura[anioIndex].s1;
+  const s2 = estructura[anioIndex].s2;
+  const ramos = [...s1, ...s2];
+
+  // Ver si TODOS los ramos del año ya están aprobados
+  const todosAprobados = ramos.every((nombre, idx) => {
+    const s = idx < s1.length ? "s1" : "s2";
+    const j = idx < s1.length ? idx : idx - s1.length;
+    const id = `${anioIndex}-${s}-${j}|${nombre}`;
+    return estado[id];
+  });
+
+  // Marcar o desmarcar todos
+  ramos.forEach((nombre, idx) => {
+    const s = idx < s1.length ? "s1" : "s2";
+    const j = idx < s1.length ? idx : idx - s1.length;
+    const id = `${anioIndex}-${s}-${j}|${nombre}`;
+
+    if (todosAprobados) {
+      delete estado[id];
+    } else {
+      estado[id] = true;
+    }
+  });
+
+  localStorage.setItem("estado_malla", JSON.stringify(estado));
+  render();
+}
 
   ramos.forEach((nombre, j) => {
     const id = `${anioIndex}-${semestreKey}-${j}|${nombre}`;
