@@ -24,6 +24,7 @@ const prereq={
   "Evaluación Inglés Nivel C1":["Evaluación Inglés Nivel B2"],
   "Examen de Inglés Nivel C1 o Equivalente":["Evaluación Inglés Nivel C1"]
 };
+
 const infoRamos = {
   "English Language I": { sigla: "LET0301", creditos: 12 },
   "Applied Grammar I": { sigla: "LET1331", creditos: 10 },
@@ -92,7 +93,7 @@ const estructura=[
   s2:["Language and Culture II (CPC)","Diversidad e Inclusión en Educación","Teaching and Learning English Secondary I","Práctica Pedagogía en Inglés III","Electivo Formación General","Evaluación Inglés Nivel C1"]},
  {anio:"Cuarto Año",
   s1:["Language and Culture III (CPC)","Introduction to Literary Studies","Teaching and Learning English Primary II","Electivo Formación General","Electivo Formación General"],
-  s2:["Language and Culture IV (CPC)","Classroom Research Seminar","Teaching and Learning English Secondary II","Práctica Pedagogía en Inglés IV","Examen de Licenciatura en Educación","Electivo Formación General"]},
+  s2:["Language and Culture IV (CPC)","Classroom Research Seminar","Teaching and Learning English Secondary II","Práctica Pedagogía en Inglés IV","Examen de Licenciatura en Educación","Electivo Formación General","Examen de Inglés Nivel C1 o Equivalente"]},
  {anio:"Quinto Año",
   s1:["English Spanish Contrasts (CPC)","Literature for Children (CPC)","Gestión y Liderazgo en el Aula","Práctica Profesional Pedagogía en Inglés Educación Básica"],
   s2:["Literature for Teen Readers (CPC)","Seminar","Práctica Profesional Pedagogía en Inglés Educación Media","Ética Profesional"]}
@@ -106,15 +107,27 @@ const puede=n=>(prereq[n]||[]).every(r=>aprobado(r));
 function crearMateria(nombre,id){
   const d=document.createElement("div");
   d.className="materia";
+
   if(estado[id]) d.classList.add("aprobada");
   else if(puede(nombre)) d.classList.add("habilitada");
-  d.textContent=nombre;
+
+  const info = infoRamos[nombre] || { sigla: "—", creditos: 0 };
+
+  d.innerHTML = `
+    <div class="materia-header">
+      <span class="materia-nombre">${nombre}</span>
+      <span class="materia-sigla">${info.sigla}</span>
+    </div>
+    <div class="materia-creditos">${info.creditos} cr.</div>
+  `;
+
   d.onclick=()=>{
     if(!puede(nombre)) return;
     estado[id]?delete estado[id]:estado[id]=true;
     localStorage.setItem("estado_malla",JSON.stringify(estado));
     render();
   };
+
   return d;
 }
 
