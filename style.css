@@ -226,3 +226,38 @@ button{
   transform: scale(1.1);
 }
 
+.info-btn{
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  font-size: .75rem;
+  background: white;
+  color: #3C096C;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.info-menu{
+  position: absolute;
+  top: 26px;
+  left: 6px;
+  background: white;
+  color: #1f2a44;
+  border-radius: 8px;
+  padding: .4rem;
+  font-size: .65rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,.2);
+  display: none;
+  z-index: 10;
+  max-width: 220px;
+}
+
+.info-menu.visible{
+  display: block;
+}
