@@ -62,6 +62,24 @@ document.addEventListener("DOMContentLoaded", () => {
     return d;
   }
 
+  function actualizarBarra(){
+    const totalRamos = estructura.reduce(
+      (acc,a) => acc + a.s1.length + a.s2.length, 0
+    );
+
+    const aprobados = Object.values(estado)
+      .filter(v => v === "aprobada").length;
+
+    const porcentaje = Math.round((aprobados / totalRamos) * 100);
+
+    const barra = document.querySelector(".barra-relleno");
+    const texto = document.querySelector(".progreso-texto");
+
+    if(barra) barra.style.width = porcentaje + "%";
+    if(texto) texto.innerHTML =
+      `Avance de Carrera: <strong>${porcentaje}%</strong> (${aprobados * 5} Cr.)`;
+  }
+
   function render(){
     const cont = document.getElementById("malla");
     cont.innerHTML = "";
@@ -92,6 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
       col.appendChild(sems);
       cont.appendChild(col);
     });
+
+    actualizarBarra();
   }
 
   window.resetear = function(){
