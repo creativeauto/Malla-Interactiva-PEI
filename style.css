@@ -21,7 +21,7 @@ h2{
 .anio{
   background:#2D1B47;
   border-radius:10px;
-  min-width:360px;
+  min-width:320px;
   padding:.5rem;
 }
 
@@ -58,24 +58,4 @@ h2{
   padding:.4rem;
   margin-bottom:.3rem;
   text-align:center;
-  cursor:pointer;
-  transition:.3s;
-  font-size:.75rem;
-}
-
-.materia.habilitada{
-  background:#C77DFF;
-}
-
-.materia.aprobada{
-  background:#EBC9FF;
-  color:#7ed957;
-  text-decoration:line-through;
-}
-
-button{
-  margin:.5rem auto;
-  display:block;
-  padding:.4rem .8rem;
-  font-size:.75rem;
-}
+  cursor
