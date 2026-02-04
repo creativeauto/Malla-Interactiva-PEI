@@ -107,12 +107,14 @@ const puede = n => (prereq[n] || []).every(r => aprobado(r));
 function crearMateria(nombre, id) {
   const d = document.createElement("div");
   d.className = "materia";
+  d.style.position = "relative";
 
   if (estado[id]) d.classList.add("aprobada");
   else if (puede(nombre)) d.classList.add("habilitada");
 
   const info = infoRamos[nombre] || { sigla: "—", creditos: 0 };
 
+  // CONTENIDO ORIGINAL (SIGLAS + CRÉDITOS INTACTOS)
   d.innerHTML = `
     <div class="materia-header">
       <span class="materia-nombre">${nombre}</span>
@@ -121,6 +123,50 @@ function crearMateria(nombre, id) {
     <div class="materia-creditos">${info.creditos} cr.</div>
   `;
 
+  // 🔹 BOTÓN INFO
+  const infoBtn = document.createElement("button");
+  infoBtn.textContent = "ⓘ";
+  infoBtn.style.position = "absolute";
+  infoBtn.style.top = "4px";
+  infoBtn.style.right = "4px";
+  infoBtn.style.border = "none";
+  infoBtn.style.background = "transparent";
+  infoBtn.style.cursor = "pointer";
+  infoBtn.style.fontSize = "14px";
+
+  // 🔹 MENÚ
+  const menu = document.createElement("div");
+  menu.style.position = "absolute";
+  menu.style.top = "24px";
+  menu.style.right = "4px";
+  menu.style.background = "#fff";
+  menu.style.border = "1px solid #ccc";
+  menu.style.padding = "6px";
+  menu.style.fontSize = "12px";
+  menu.style.display = "none";
+  menu.style.zIndex = "10";
+
+  const data = infoRequisitos[nombre] || { requiere: [], esRequisitoDe: [] };
+
+  menu.innerHTML = `
+    <strong>Requiere:</strong><br>
+    ${data.requiere.length ? data.requiere.join("<br>") : "—"}
+    <br><br>
+    <strong>Es requisito de:</strong><br>
+    ${data.esRequisitoDe.length ? data.esRequisitoDe.join("<br>") : "—"}
+  `;
+
+  infoBtn.onclick = e => {
+    e.stopPropagation();
+    menu.style.display = menu.style.display === "none" ? "block" : "none";
+  };
+
+  document.addEventListener("click", () => menu.style.display = "none");
+
+  d.appendChild(infoBtn);
+  d.appendChild(menu);
+
+  // CLICK ORIGINAL PARA APROBAR
   d.onclick = () => {
     if (!puede(nombre)) return;
     estado[id] ? delete estado[id] : estado[id] = true;
@@ -130,6 +176,7 @@ function crearMateria(nombre, id) {
 
   return d;
 }
+
 
 function actualizarBarra() {
   const totalRamos = estructura.reduce((a, x) => a + x.s1.length + x.s2.length, 0);
