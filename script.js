@@ -13,16 +13,16 @@ const prereq={
 
 const estructura=[
  {anio:"Primer Año",
-  s1:["English Language I","Applied Grammar I","Ámbitos del Aprendizaje y el Desarrollo","Teoría de la Educación","Introduction to Teaching English (CPC)"],
+  s1:["English Language I","Applied Grammar I","Teoría de la Educación","Introduction to Teaching English (CPC)"],
   s2:["English Language II","Applied Grammar II","Ámbitos del Aprendizaje y el Desarrollo","Práctica Pedagogía en Inglés I","Electivo Formación General"]},
  {anio:"Segundo Año",
-  s1:["English Language III","Applied Phonetics I","Applied Linguistics and Education","Educación y Sociedad","Electivo Formación General"],
+  s1:["English Language III","Applied Phonetics I","Educación y Sociedad","Electivo Formación General"],
   s2:["English Language IV","Applied Phonetics II","Evaluación para el Aprendizaje","Práctica Pedagogía en Inglés II","Electivo Formación General"]},
  {anio:"Tercer Año",
-  s1:["Language and Culture I","Second Language Acquisition","Curriculum","Teaching and Learning English Primary I","Electivo Formación General"],
+  s1:["Language and Culture I","Second Language Acquisition","Curriculum","Teaching and Learning English Primary I"],
   s2:["Language and Culture II","Diversidad e Inclusión en Educación","Teaching and Learning English Secondary I","Práctica Pedagogía en Inglés III","Electivo Formación General","Evaluación Inglés Nivel C1"]},
  {anio:"Cuarto Año",
-  s1:["Language and Culture III","Introduction to Literary Studies","Teaching and Learning English Primary II","Electivo Formación General","Electivo Formación General"],
+  s1:["Language and Culture III","Introduction to Literary Studies","Teaching and Learning English Primary II","Electivo Formación General"],
   s2:["Language and Culture IV","Classroom Research","Teaching and Learning English Secondary II","Práctica Pedagogía en Inglés IV","Examen de Licenciatura en Educación","Examen de Inglés Nivel C1 o Equivalente","Electivo Formación General"]},
  {anio:"Quinto Año",
   s1:["English Spanish Contrasts (CPC)","Literature for Children (CPC)","Gestión y Liderazgo en el Aula","Práctica Profesional Pedagogía en Inglés Educación Básica"],
@@ -36,12 +36,23 @@ const puede=n=>(prereq[n]||[]).every(r=>estado[r]==="aprobada");
 function crearMateria(nombre,id){
   const d=document.createElement("div");
   d.className="materia";
+
   if(estado[id]==="aprobada") d.classList.add("aprobada");
   else if(puede(nombre)) d.classList.add("habilitada");
+
   d.textContent=nombre;
   d.onclick=()=>{
     if(!puede(nombre)) return;
-    estado[id]?delete estado[id]:estado[id]="aprobada";
+
+    if(estado[id]){
+      delete estado[id];
+      if(!Object.keys(estado).some(k=>k!==id && k.endsWith(nombre)))
+        delete estado[nombre];
+    }else{
+      estado[id]="aprobada";
+      estado[nombre]="aprobada";
+    }
+
     localStorage.setItem("estado_malla",JSON.stringify(estado));
     render();
   };
@@ -50,7 +61,7 @@ function crearMateria(nombre,id){
 
 function actualizarBarra(){
   const total=estructura.reduce((a,x)=>a+x.s1.length+x.s2.length,0);
-  const ok=Object.values(estado).filter(v=>v==="aprobada").length;
+  const ok=Object.keys(estado).filter(k=>estado[k]==="aprobada" && k.includes("-")).length;
   const p=Math.round(ok/total*100);
   document.querySelector(".barra-relleno").style.width=p+"%";
   document.querySelector(".progreso-texto").innerHTML=
@@ -63,32 +74,4 @@ function render(){
   const sem1=["I","III","V","VII","IX"],sem2=["II","IV","VI","VIII","X"];
 
   estructura.forEach((a,i)=>{
-    const col=document.createElement("div");
-    col.className="anio";
-    col.innerHTML=`<h3>${a.anio}</h3>`;
-    const sems=document.createElement("div");
-    sems.className="semestres";
-
-    [["s1",sem1[i]],["s2",sem2[i]]].forEach(([s,l])=>{
-      const c=document.createElement("div");
-      c.className="semestre-col";
-      c.innerHTML=`<h4>${l}</h4>`;
-      a[s].forEach((m,j)=>c.appendChild(crearMateria(m,`${a.anio}-${s}-${j}-${m}`)));
-      sems.appendChild(c);
-    });
-
-    col.appendChild(sems);
-    cont.appendChild(col);
-  });
-
-  actualizarBarra();
-}
-
-window.resetear=()=>{
-  localStorage.removeItem("estado_malla");
-  estado={};
-  render();
-};
-
-render();
-});
+    const col=document.create
