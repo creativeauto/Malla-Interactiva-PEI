@@ -55,7 +55,7 @@ h2{
   background:#3C096C;
   color:white;
   border-radius:10px;
-  padding:.4rem;
+  padding: 16px 12px;   /* ⬅️ más alta, mismo ancho */
   margin-bottom:.3rem;
   text-align:center;
   cursor:pointer;
@@ -63,6 +63,7 @@ h2{
   font-size:.8rem;
   font-weight:600;
 }
+
 
 .materia.habilitada{
   background:#C77DFF;
