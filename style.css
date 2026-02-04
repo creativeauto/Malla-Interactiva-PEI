@@ -115,3 +115,34 @@ button{
   border-radius:10px;
   transition:width .4s ease;
 }
+.materia{
+  position: relative;
+  text-align: left;
+}
+
+.materia-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: .3rem;
+}
+
+.materia-nombre{
+  font-size: .78rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.materia-sigla{
+  font-size: .6rem;
+  opacity: .85;
+  white-space: nowrap;
+}
+
+.materia-creditos{
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  font-size: .6rem;
+  opacity: .85;
+}
