@@ -138,10 +138,14 @@ button{
 }
 
 .materia-sigla{
-  font-size: .6rem;
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: .65rem;
   opacity: .85;
   white-space: nowrap;
 }
+
 
 .materia-creditos{
   position: absolute;
