@@ -1,4 +1,4 @@
-body{font-family:system-ui,sans-serif;background:#f4f4f6;margin:0;padding:1rem}
+body{font-family:system-ui,sans-serif;background:#f7f5ca;margin:0;padding:1rem}
 h2{text-align:center}
 .malla{display:flex;gap:1rem;overflow-x:auto}
 .anio{background:#263238;border-radius:14px;min-width:460px;padding:.75rem}
