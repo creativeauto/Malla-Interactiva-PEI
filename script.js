@@ -240,3 +240,5 @@ window.resetear = () => {
 };
 
 render();
+
+});
