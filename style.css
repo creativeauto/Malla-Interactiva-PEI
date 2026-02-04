@@ -55,7 +55,7 @@ h2{
   background:#3C096C;
   color:white;
   border-radius:10px;
-  padding: 16px 12px;   /* ⬅️ más alta, mismo ancho */
+  padding: 26px 12px 16px 12px;   /* ⬅️ más alta, mismo ancho */
   margin-bottom:.3rem;
   text-align:center;
   cursor:pointer;
