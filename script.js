@@ -1,103 +1,193 @@
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
 
-const prereq={
+const prereq = {
   "English Language II":["English Language I"],
   "English Language III":["English Language II"],
   "English Language IV":["English Language III"],
+
   "Applied Grammar II":["Applied Grammar I"],
   "Applied Phonetics II":["Applied Phonetics I"],
-  "Language and Culture II":["Language and Culture I"],
-  "Language and Culture III":["Language and Culture II"],
-  "Language and Culture IV":["Language and Culture III"]
+
+  "Language and Culture I (CPC)":["English Language IV"],
+  "Language and Culture II (CPC)":["Language and Culture I (CPC)"],
+  "Language and Culture III (CPC)":["Language and Culture II (CPC)"],
+  "Language and Culture IV (CPC)":["Language and Culture III (CPC)"],
+
+  "Teaching and Learning English Primary I":["English Language IV"],
+  "Teaching and Learning English Primary II":["Teaching and Learning English Primary I"],
+
+  "Teaching and Learning English Secondary I":["English Language IV"],
+  "Teaching and Learning English Secondary II":["Teaching and Learning English Secondary I"],
+
+  "Práctica Pedagogía en Inglés II":["Práctica Pedagogía en Inglés I"],
+  "Práctica Pedagogía en Inglés III":["Práctica Pedagogía en Inglés II"],
+  "Práctica Pedagogía en Inglés IV":["Práctica Pedagogía en Inglés III"],
+
+  "Práctica Profesional Pedagogía en Inglés Educación Básica":[
+    "Práctica Pedagogía en Inglés IV",
+    "Teaching and Learning English Primary II"
+  ],
+
+  "Práctica Profesional Pedagogía en Inglés Educación Media":[
+    "Práctica Pedagogía en Inglés IV",
+    "Teaching and Learning English Secondary II"
+  ],
+
+  "Evaluación Inglés Nivel C1":["Evaluación Inglés Nivel B2"],
+  "Examen de Inglés Nivel C1 o Equivalente":["Evaluación Inglés Nivel C1"]
 };
 
-const estructura=[
- {anio:"Primer Año",
-  s1:["English Language I","Applied Grammar I","Teoría de la Educación","Introduction to Teaching English (CPC)"],
-  s2:["English Language II","Applied Grammar II","Ámbitos del Aprendizaje y el Desarrollo","Práctica Pedagogía en Inglés I","Electivo Formación General"]},
- {anio:"Segundo Año",
-  s1:["English Language III","Applied Phonetics I","Educación y Sociedad","Electivo Formación General"],
-  s2:["English Language IV","Applied Phonetics II","Evaluación para el Aprendizaje","Práctica Pedagogía en Inglés II","Electivo Formación General"]},
- {anio:"Tercer Año",
-  s1:["Language and Culture I","Second Language Acquisition","Curriculum","Teaching and Learning English Primary I"],
-  s2:["Language and Culture II","Diversidad e Inclusión en Educación","Teaching and Learning English Secondary I","Práctica Pedagogía en Inglés III","Electivo Formación General","Evaluación Inglés Nivel C1"]},
- {anio:"Cuarto Año",
-  s1:["Language and Culture III","Introduction to Literary Studies","Teaching and Learning English Primary II","Electivo Formación General"],
-  s2:["Language and Culture IV","Classroom Research","Teaching and Learning English Secondary II","Práctica Pedagogía en Inglés IV","Examen de Licenciatura en Educación","Examen de Inglés Nivel C1 o Equivalente","Electivo Formación General"]},
- {anio:"Quinto Año",
-  s1:["English Spanish Contrasts (CPC)","Literature for Children (CPC)","Gestión y Liderazgo en el Aula","Práctica Profesional Pedagogía en Inglés Educación Básica"],
-  s2:["Literature for Teen Readers (CPC)","Seminar","Práctica Profesional Pedagogía en Inglés Educación Media","Ética Profesional"]}
+const estructura = [
+{
+  anio:"Primer Año",
+  s1:[
+    "English Language I",
+    "Applied Grammar I",
+    "Ámbitos del Aprendizaje y el desarrollo",
+    "Teoría de la Educación",
+    "Introduction to Teaching English (CPC)"
+  ],
+  s2:[
+    "English Language II",
+    "Applied Grammar II",
+    "Aprendizaje y Desarrollo del Escolar",
+    "Práctica Pedagogía en Inglés I",
+    "Electivo Formación General",
+    "Evaluación Inglés Nivel B2"
+  ]
+},
+{
+  anio:"Segundo Año",
+  s1:[
+    "English Language III",
+    "Applied Phonetics I",
+    "Applied Linguistics and Education",
+    "Educación y Sociedad",
+    "Electivo Formación General"
+  ],
+  s2:[
+    "English Language IV",
+    "Applied Phonetics II",
+    "Evaluación para el Aprendizaje",
+    "Práctica Pedagogía en Inglés II",
+    "Electivo Formación General"
+  ]
+},
+{
+  anio:"Tercer Año",
+  s1:[
+    "Language and Culture I (CPC)",
+    "Second Language Acquisition",
+    "Curriculum",
+    "Teaching and Learning English Primary I",
+    "Electivo Formación General"
+  ],
+  s2:[
+    "Language and Culture II (CPC)",
+    "Diversidad e Inclusión en Educación",
+    "Teaching and Learning English Secondary I",
+    "Práctica Pedagogía en Inglés III",
+    "Electivo Formación General",
+    "Evaluación Inglés Nivel C1"
+  ]
+},
+{
+  anio:"Cuarto Año",
+  s1:[
+    "Language and Culture III (CPC)",
+    "Introduction to Literary Studies",
+    "Teaching and Learning English Primary II",
+    "Electivo Formación General"
+  ],
+  s2:[
+    "Language and Culture IV (CPC)",
+    "Classroom Research Seminar",
+    "Teaching and Learning English Secondary II",
+    "Práctica Pedagogía en Inglés IV",
+    "Examen de Licenciatura en Educación",
+    "Electivo Formación General"
+  ]
+},
+{
+  anio:"Quinto Año",
+  s1:[
+    "English Spanish Contrasts (CPC)",
+    "Literature for Children (CPC)",
+    "Gestión y Liderazgo en el Aula",
+    "Práctica Profesional Pedagogía en Inglés Educación Básica"
+  ],
+  s2:[
+    "Literature for Teen Readers (CPC)",
+    "Seminar",
+    "Práctica Profesional Pedagogía en Inglés Educación Media",
+    "Ética Profesional"
+  ]
+}
 ];
 
-let estado=JSON.parse(localStorage.getItem("estado_malla"))||{};
+let estado = JSON.parse(localStorage.getItem("estado_malla")) || {};
 
-const puede=n=>(prereq[n]||[]).every(r=>estado[r]==="aprobada");
+function aprobado(nombre){
+  return Object.keys(estado).some(id => id.endsWith("|"+nombre));
+}
 
-function crearMateria(nombre,id){
-  const d=document.createElement("div");
-  d.className="materia";
+function puede(nombre){
+  return (prereq[nombre] || []).every(r => aprobado(r));
+}
 
-  if(estado[id]==="aprobada") d.classList.add("aprobada");
-  else if(puede(nombre)) d.classList.add("habilitada");
+function crearMateria(nombre, id){
+  const d = document.createElement("div");
+  d.className = "materia";
 
-  d.textContent=nombre;
-  d.onclick=()=>{
-    if(!puede(nombre)) return;
+  if (estado[id]) d.classList.add("aprobada");
+  else if (puede(nombre)) d.classList.add("habilitada");
 
-    if(estado[id]){
-      delete estado[id];
-      if(!Object.keys(estado).some(k=>k!==id && k.endsWith(nombre)))
-        delete estado[nombre];
-    }else{
-      estado[id]="aprobada";
-      estado[nombre]="aprobada";
-    }
+  d.textContent = nombre;
 
-    localStorage.setItem("estado_malla",JSON.stringify(estado));
+  d.onclick = () => {
+    if (!puede(nombre)) return;
+    estado[id] ? delete estado[id] : estado[id] = true;
+    localStorage.setItem("estado_malla", JSON.stringify(estado));
     render();
   };
+
   return d;
 }
 
-function actualizarBarra(){
-  const total=estructura.reduce((a,x)=>a+x.s1.length+x.s2.length,0);
-  const ok=Object.keys(estado).filter(k=>estado[k]==="aprobada" && k.includes("-")).length;
-  const p=Math.round(ok/total*100);
-  document.querySelector(".barra-relleno").style.width=p+"%";
-  document.querySelector(".progreso-texto").innerHTML=
-    `Avance de Carrera: <strong>${p}%</strong> (${ok*5} Cr.)`;
-}
-
 function render(){
-  const cont=document.getElementById("malla");
-  cont.innerHTML="";
-  const sem1=["I","III","V","VII","IX"],sem2=["II","IV","VI","VIII","X"];
+  const cont = document.getElementById("malla");
+  cont.innerHTML = "";
+
+  const sem1 = ["I","III","V","VII","IX"];
+  const sem2 = ["II","IV","VI","VIII","X"];
 
   estructura.forEach((a,i)=>{
-    const col=document.createElement("div");
-    col.className="anio";
-    col.innerHTML=`<h3>${a.anio}</h3>`;
-    const sems=document.createElement("div");
-    sems.className="semestres";
+    const col = document.createElement("div");
+    col.className = "anio";
+    col.innerHTML = `<h3>${a.anio}</h3>`;
 
-    [["s1",sem1[i]],["s2",sem2[i]]].forEach(([s,l])=>{
-      const c=document.createElement("div");
-      c.className="semestre-col";
-      c.innerHTML=`<h4>${l}</h4>`;
-      a[s].forEach((m,j)=>c.appendChild(crearMateria(m,`${a.anio}-${s}-${j}-${m}`)));
-      sems.appendChild(c);
-    });
+    const sems = document.createElement("div");
+    sems.className = "semestres";
 
+    const c1 = document.createElement("div");
+    c1.className = "semestre-col";
+    c1.innerHTML = `<h4>${sem1[i]}</h4>`;
+    a.s1.forEach((m,j)=>c1.appendChild(crearMateria(m,`${i}-1-${j}|${m}`)));
+
+    const c2 = document.createElement("div");
+    c2.className = "semestre-col";
+    c2.innerHTML = `<h4>${sem2[i]}</h4>`;
+    a.s2.forEach((m,j)=>c2.appendChild(crearMateria(m,`${i}-2-${j}|${m}`)));
+
+    sems.append(c1,c2);
     col.appendChild(sems);
     cont.appendChild(col);
   });
-
-  actualizarBarra();
 }
 
-window.resetear=()=>{
+window.resetear = () => {
   localStorage.removeItem("estado_malla");
-  estado={};
+  estado = {};
   render();
 };
 
