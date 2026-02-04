@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malla Interactiva</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#f4f4f6;margin:0;padding:1rem}
+h2{text-align:center}
+.malla{display:flex;gap:1rem;overflow-x:auto}
+.anio{background:#263238;border-radius:14px;min-width:460px;padding:.75rem}
+.anio h3{color:white;text-align:center;margin:.5rem 0}
+.semestres{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.semestre-col{background:#455a64;border-radius:10px;padding:.5rem}
+.semestre-col h4{color:white;text-align:center;margin:.25rem 0 .5rem}
+.materia{
+ background:#3C096C;color:white;border-radius:10px;
+ padding:.6rem;margin-bottom:.4rem;text-align:center;
+ cursor:pointer;transition:.3s}
+.materia.habilitada{background:#C77DFF}
+.materia.aprobada{background:#EBC9FF;color:#333;text-decoration:line-through}
+button{margin:1rem auto;display:block;padding:.5rem 1rem}
+</style>
+</head>
+<body>
+
+<h2>Malla Interactiva – Pedagogía en Inglés</h2>
+<button onclick="resetear()">Reiniciar progreso</button>
+<div class="malla" id="malla"></div>
+
+<script>
+const prereq = {
+ "English Language II":["English Language I"],
+ "English Language III":["English Language II"],
+ "English Language IV":["English Language III"],
+ "Applied Grammar II":["Applied Grammar I"],
+ "Applied Phonetics II":["Applied Phonetics I"],
+ "Language and Culture II":["Language and Culture I"],
+ "Language and Culture III":["Language and Culture II"],
+ "Language and Culture IV":["Language and Culture III"]
+};
+
+const estructura = [
+ {anio:"Primer Año", s1:["English Language I","Applied Grammar I","Teoría de la Educación","Introduction to Teaching English (CPC)"],
+                       s2:["English Language II","Applied Grammar II","Ámbitos del Aprendizaje y el Desarrollo","Práctica Pedagogía en Inglés I"]},
+ {anio:"Segundo Año", s1:["English Language III","Applied Phonetics I","Educación y Sociedad","Electivo Formación General"],
+                       s2:["English Language IV","Applied Phonetics II","Introducción a la Política Comparada","Práctica Pedagogía en Inglés II"]},
+ {anio:"Tercer Año", s1:["Language and Culture I","Second Language Acquisition","Curriculum","Teaching and Learning English Primary I"],
+                      s2:["Language and Culture II","Diversidad e Inclusión en Educación","Teaching and Learning English Primary II","Práctica Pedagogía en Inglés III"]},
+ {anio:"Cuarto Año", s1:["Language and Culture III","Introduction to Literary Studies","Teaching and Learning English Secondary I"],
+                      s2:["Language and Culture IV","Literature for Children (CPC)","Teaching and Learning English Secondary II","Práctica Pedagogía en Inglés IV"]},
+ {anio:"Quinto Año", s1:["English Spanish Contrasts (CPC)","Gestión y Liderazgo en el Aula"],
+                      s2:["Ética Profesional","Práctica Profesional Pedagogía en Inglés"]}
+];
+
+let estado=JSON.parse(localStorage.getItem("estado_malla"))||{};
+
+function puede(m){return (prereq[m]||[]).every(x=>estado[x]==="aprobada")}
+
+function crear(m){
+ const d=document.createElement("div");
+ d.className="materia";
+ if(estado[m]==="aprobada")d.classList.add("aprobada");
+ else if(puede(m))d.classList.add("habilitada");
+ d.textContent=m;
+ d.onclick=()=>{
+  if(!puede(m))return;
+  if(estado[m]==="aprobada")delete estado[m];
+  else estado[m]="aprobada";
+  localStorage.setItem("estado_malla",JSON.stringify(estado));
+  render();
+ };
+ return d;
+}
+
+function render(){
+ const cont=document.getElementById("malla");
+ cont.innerHTML="";
+ estructura.forEach(a=>{
+  const col=document.createElement("div");
+  col.className="anio";
+  col.innerHTML=`<h3>${a.anio}</h3>`;
+  const sems=document.createElement("div");
+  sems.className="semestres";
+
+  const c1=document.createElement("div");
+  c1.className="semestre-col";
+  c1.innerHTML="<h4>"+["I","III","V","VII","IX"][estructura.indexOf(a)]+"</h4>";
+  a.s1.forEach(m=>c1.appendChild(crear(m)));
+
+  const c2=document.createElement("div");
+  c2.className="semestre-col";
+  c2.innerHTML="<h4>"+["II","IV","VI","VIII","X"][estructura.indexOf(a)]+"</h4>";
+  a.s2.forEach(m=>c2.appendChild(crear(m)));
+
+  sems.appendChild(c1);sems.appendChild(c2);
+  col.appendChild(sems);cont.appendChild(col);
+ });
+}
+
+function resetear(){
+ localStorage.removeItem("estado_malla");
+ estado={};render();
+}
+render();
+</script>
+</body>
+</html>
