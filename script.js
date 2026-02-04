@@ -132,13 +132,23 @@ function crearMateria(nombre,id){
 }
 
 function actualizarBarra(){
-  const total=estructura.reduce((a,x)=>a+x.s1.length+x.s2.length,0);
-  const aprobados=Object.keys(estado).length;
-  const p=Math.round(aprobados/total*100);
-  document.querySelector(".barra-relleno").style.width=p+"%";
-  document.querySelector(".progreso-texto").innerHTML=
-    `Avance de Carrera: <strong>${p}%</strong> (${aprobados*5} Cr.)`;
+  const totalRamos = estructura.reduce((a,x)=>a + x.s1.length + x.s2.length, 0);
+
+  let creditosAprobados = 0;
+  Object.keys(estado).forEach(id => {
+    const nombre = id.split("|")[1];
+    const info = infoRamos[nombre];
+    if(info) creditosAprobados += info.creditos;
+  });
+
+  const aprobados = Object.keys(estado).length;
+  const p = Math.round(aprobados / totalRamos * 100);
+
+  document.querySelector(".barra-relleno").style.width = p + "%";
+  document.querySelector(".progreso-texto").innerHTML =
+    `Avance de Carrera: <strong>${p}%</strong> (${creditosAprobados} Cr.)`;
 }
+
 
 function render(){
   const cont=document.getElementById("malla");
