@@ -98,37 +98,218 @@ const estructura=[
   s1:["English Spanish Contrasts (CPC)","Literature for Children (CPC)","Gestión y Liderazgo en el Aula","Práctica Profesional Pedagogía en Inglés Educación Básica"],
   s2:["Literature for Teen Readers (CPC)","Seminar","Práctica Profesional Pedagogía en Inglés Educación Media","Ética Profesional"]}
 ];
+const requisitos = {
+  "English Language I": {
+    requiere: [],
+    esRequisitoDe: ["English Language II"]
+  },
+  "Applied Grammar I": {
+    requiere: [],
+    esRequisitoDe: ["Applied Grammar II"]
+  },
+  "Ámbitos del Aprendizaje y el Desarrollo": {
+    requiere: [],
+    esRequisitoDe: ["Práctica Pedagogía en Inglés I"]
+  },
+  "Teoría de la Educación": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Introduction to Teaching English (CPC)": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+
+  "English Language II": {
+    requiere: ["English Language I"],
+    esRequisitoDe: ["English Language III", "Applied Phonetics I"]
+  },
+  "Applied Grammar II": {
+    requiere: ["Applied Grammar I"],
+    esRequisitoDe: ["English Spanish Contrasts (CPC)"]
+  },
+  "Aprendizaje y Desarrollo del Escolar": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Práctica Pedagogía en Inglés I": {
+    requiere: ["Ámbitos del Aprendizaje y el Desarrollo"],
+    esRequisitoDe: ["Práctica Pedagogía en Inglés II"]
+  },
+  "Electivo Formación General": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Evaluación Inglés Nivel B2": {
+    requiere: [],
+    esRequisitoDe: ["Evaluación Inglés Nivel C1"]
+  },
+
+  "English Language III": {
+    requiere: ["English Language II"],
+    esRequisitoDe: ["English Language IV"]
+  },
+  "Applied Phonetics I": {
+    requiere: ["English Language II"],
+    esRequisitoDe: ["Applied Phonetics II"]
+  },
+  "Applied Linguistics and Education": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Educación y Sociedad": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+
+  "English Language IV": {
+    requiere: ["English Language III"],
+    esRequisitoDe: ["Language and Culture I (CPC)", "Teaching and Learning English Primary I", "Teaching and Learning English Secondary I"]
+  },
+  "Applied Phonetics II": {
+    requiere: ["Applied Phonetics I"],
+    esRequisitoDe: ["English Spanish Contrasts (CPC)"]
+  },
+  "Evaluación para el Aprendizaje": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Práctica Pedagogía en Inglés II": {
+    requiere: ["Práctica Pedagogía en Inglés I"],
+    esRequisitoDe: ["Práctica Pedagogía en Inglés III"]
+  },
+
+  "Language and Culture I (CPC)": {
+    requiere: ["English Language IV"],
+    esRequisitoDe: ["Language and Culture II (CPC)"]
+  },
+  "Second Language Acquisition": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Curriculum": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Teaching and Learning English Primary I": {
+    requiere: ["English Language IV"],
+    esRequisitoDe: ["Teaching and Learning English Primary II", "Práctica Pedagogía en Inglés III"]
+  },
+
+  "Language and Culture II (CPC)": {
+    requiere: ["Language and Culture I (CPC)"],
+    esRequisitoDe: ["Language and Culture III (CPC)"]
+  },
+  "Diversidad e Inclusión en Educación": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Práctica Pedagogía en Inglés III": {
+    requiere: ["Práctica Pedagogía en Inglés II", "Teaching and Learning English Primary I"],
+    esRequisitoDe: ["Práctica Pedagogía en Inglés IV"]
+  },
+  "Evaluación Inglés Nivel C1": {
+    requiere: ["Evaluación Inglés Nivel B2"],
+    esRequisitoDe: ["Examen de Inglés Nivel C1 o Equivalente"]
+  },
+  "Teaching and Learning English Secondary I": {
+    requiere: ["English Language IV"],
+    esRequisitoDe: ["Teaching and Learning English Secondary II"]
+  },
+
+  "Language and Culture III (CPC)": {
+    requiere: ["Language and Culture II (CPC)"],
+    esRequisitoDe: ["Language and Culture IV (CPC)"]
+  },
+  "Introduction to Literary Studies": {
+    requiere: [],
+    esRequisitoDe: ["Literature for Children (CPC)", "Literature for Teen Readers (CPC)"]
+  },
+  "Teaching and Learning English Primary II": {
+    requiere: ["Teaching and Learning English Primary I"],
+    esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Básica"]
+  },
+
+  "Language and Culture IV (CPC)": {
+    requiere: ["Language and Culture III (CPC)"],
+    esRequisitoDe: ["English Spanish Contrasts (CPC)"]
+  },
+  "Classroom Research": {
+    requiere: [],
+    esRequisitoDe: ["Seminar"]
+  },
+  "Teaching and Learning English Secondary II": {
+    requiere: ["Teaching and Learning English Secondary I"],
+    esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Media"]
+  },
+  "Práctica Pedagogía en Inglés IV": {
+    requiere: ["Práctica Pedagogía en Inglés III"],
+    esRequisitoDe: [
+      "Práctica Profesional Pedagogía en Inglés Educación Básica",
+      "Práctica Profesional Pedagogía en Inglés Educación Media"
+    ]
+  },
+  "Examen de Licenciatura en Educación": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Examen de Inglés Nivel C1 o Equivalente": {
+    requiere: ["Evaluación Inglés Nivel C1"],
+    esRequisitoDe: []
+  },
+
+  "English Spanish Contrasts (CPC)": {
+    requiere: ["Language and Culture IV (CPC)", "Applied Grammar II", "Applied Phonetics II"],
+    esRequisitoDe: []
+  },
+  "Literature for Children (CPC)": {
+    requiere: ["Introduction to Literary Studies"],
+    esRequisitoDe: []
+  },
+  "Gestión y Liderazgo en el Aula": {
+    requiere: [],
+    esRequisitoDe: []
+  },
+  "Práctica Profesional Pedagogía en Inglés Educación Básica": {
+    requiere: ["Práctica Pedagogía en Inglés IV", "Teaching and Learning English Primary II"],
+    esRequisitoDe: []
+  },
+
+  "Literature for Teen Readers (CPC)": {
+    requiere: ["Introduction to Literary Studies"],
+    esRequisitoDe: []
+  },
+  "Seminar": {
+    requiere: ["Classroom Research"],
+    esRequisitoDe: []
+  },
+  "Práctica Profesional Pedagogía en Inglés Educación Media": {
+    requiere: ["Práctica Pedagogía en Inglés IV", "Teaching and Learning English Secondary II"],
+    esRequisitoDe: []
+  },
+  "Ética Profesional": {
+    requiere: [],
+    esRequisitoDe: []
+  }
+};
 
 let estado = JSON.parse(localStorage.getItem("estado_malla")) || {};
 
 const aprobado = n => Object.keys(estado).some(id => id.endsWith("|" + n));
 const puede = n => (prereq[n] || []).every(r => aprobado(r));
 
-function crearMateria(nombre, id) {
-  const d = document.createElement("div");
-  d.className = "materia";
+function toggleInfo(contenedor, nombreRamo) {
+  const box = contenedor.querySelector(".info-box");
+  const data = requisitos[nombreRamo] || { requiere: [], esRequisitoDe: [] };
 
-  if (estado[id]) d.classList.add("aprobada");
-  else if (puede(nombre)) d.classList.add("habilitada");
-
-  const info = infoRamos[nombre] || { sigla: "—", creditos: 0 };
-
-  d.innerHTML = `
-    <div class="materia-header">
-      <span class="materia-nombre">${nombre}</span>
-      <span class="materia-sigla">${info.sigla}</span>
-    </div>
-    <div class="materia-creditos">${info.creditos} cr.</div>
+  box.innerHTML = `
+    <strong>Requisitos:</strong>
+    <div>${data.requiere.length ? data.requiere.join(", ") : "No tiene"}</div>
+    <strong>Es requisito de:</strong>
+    <div>${data.esRequisitoDe.length ? data.esRequisitoDe.join(", ") : "No es requisito de otros"}</div>
   `;
 
-  d.onclick = () => {
-    if (!puede(nombre)) return;
-    estado[id] ? delete estado[id] : estado[id] = true;
-    localStorage.setItem("estado_malla", JSON.stringify(estado));
-    render();
-  };
-
-  return d;
+  box.style.display = box.style.display === "none" ? "block" : "none";
 }
 
 function actualizarBarra() {
@@ -204,8 +385,7 @@ function render() {
     col.className = "anio";
     col.innerHTML = `<h3 class="titulo-anio">${a.anio}</h3>`;
 
-    const tituloAnio = col.querySelector(".titulo-anio");
-    tituloAnio.onclick = () => aprobarAnio(i);
+    col.querySelector(".titulo-anio").onclick = () => aprobarAnio(i);
 
     const sems = document.createElement("div");
     sems.className = "semestres";
@@ -213,15 +393,13 @@ function render() {
     [["s1", sem1[i]], ["s2", sem2[i]]].forEach(([s, l]) => {
       const c = document.createElement("div");
       c.className = "semestre-col";
-
       c.innerHTML = `<h4 class="titulo-semestre">${l}</h4>`;
 
-      const titulo = c.querySelector(".titulo-semestre");
-      titulo.onclick = () => aprobarSemestre(i, s);
+      c.querySelector(".titulo-semestre").onclick = () => aprobarSemestre(i, s);
 
-      a[s].forEach((m, j) =>
-        c.appendChild(crearMateria(m, `${i}-${s}-${j}|${m}`))
-      );
+      a[s].forEach((m, j) => {
+        c.appendChild(crearMateria(m, `${i}-${s}-${j}|${m}`));
+      });
 
       sems.appendChild(c);
     });
@@ -240,5 +418,36 @@ window.resetear = () => {
 };
 
 render();
+function crearMateria(nombre, id) {
+  const d = document.createElement("div");
+  d.className = "materia";
 
-});
+  if (estado[id]) d.classList.add("aprobada");
+  else if (puede(nombre)) d.classList.add("habilitada");
+
+  const info = infoRamos[nombre] || { sigla: "—", creditos: 0 };
+
+  d.innerHTML = `
+    <div class="materia-header">
+      <span class="materia-nombre">${nombre}</span>
+      <button class="info-btn" title="Ver requisitos">ℹ️</button>
+    </div>
+    <div class="materia-creditos">${info.creditos} cr.</div>
+    <div class="info-box" style="display:none"></div>
+  `;
+
+  d.onclick = () => {
+    if (!puede(nombre)) return;
+    estado[id] ? delete estado[id] : estado[id] = true;
+    localStorage.setItem("estado_malla", JSON.stringify(estado));
+    render();
+  };
+
+  const infoBtn = d.querySelector(".info-btn");
+  infoBtn.onclick = (e) => {
+    e.stopPropagation();
+    toggleInfo(d, nombre);
+  };
+
+  return d;
+}
