@@ -213,4 +213,28 @@ button{
 .titulo-anio{
   background: rgba(255,255,255,.12);
 }
+.info-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: .3rem;
+  opacity: .7;
+}
 
+.info-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.info-box {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #24163a;
+  border: 1px solid rgba(255,255,255,.2);
+  padding: .6rem .8rem;
+  border-radius: .5rem;
+  font-size: .75rem;
+  width: 220px;
+  z-index: 100;
+}
