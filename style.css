@@ -214,38 +214,3 @@ button{
   background: rgba(255,255,255,.12);
 }
 
-/* Contenedor del año: centra el botón */
-.anio {
-  display: flex;
-  justify-content: center;
-}
-
-/* Botón del año */
-.anio h3 {
-  margin: 0 0 .5rem 0;
-  padding: .5rem 1.2rem;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: .6rem;
-  cursor: pointer;
-}
-
-/* Contenedor de columnas de semestres */
-.semestres {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-/* Botones de semestre (I, II, III, IV...) */
-.semestre-col h4 {
-  text-align: center;
-  margin: 0 auto .5rem;
-  padding: .4rem 1.2rem;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: .6rem;
-  cursor: pointer;
-}
