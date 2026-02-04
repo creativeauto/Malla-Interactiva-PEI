@@ -103,6 +103,43 @@ let estado = JSON.parse(localStorage.getItem("estado_malla")) || {};
 
 const aprobado = n => Object.keys(estado).some(id => id.endsWith("|" + n));
 const puede = n => (prereq[n] || []).every(r => aprobado(r));
+const infoRequisitos = {
+  "English Language I": { requiere: [], esRequisitoDe: ["English Language II"] },
+  "English Language II": { requiere: ["English Language I"], esRequisitoDe: ["English Language III","Applied Phonetics I"] },
+  "English Language III": { requiere: ["English Language II"], esRequisitoDe: ["English Language IV"] },
+  "English Language IV": { requiere: ["English Language III"], esRequisitoDe: ["Language and Culture I (CPC)","Teaching and Learning English Primary I","Teaching and Learning English Secondary I"] },
+
+  "Applied Grammar I": { requiere: [], esRequisitoDe: ["Applied Grammar II"] },
+  "Applied Grammar II": { requiere: ["Applied Grammar I"], esRequisitoDe: ["English Spanish Contrasts (CPC)"] },
+
+  "Applied Phonetics I": { requiere: ["English Language II"], esRequisitoDe: ["Applied Phonetics II"] },
+  "Applied Phonetics II": { requiere: ["Applied Phonetics I"], esRequisitoDe: ["English Spanish Contrasts (CPC)"] },
+
+  "Language and Culture I (CPC)": { requiere: ["English Language IV"], esRequisitoDe: ["Language and Culture II (CPC)"] },
+  "Language and Culture II (CPC)": { requiere: ["Language and Culture I (CPC)"], esRequisitoDe: ["Language and Culture III (CPC)"] },
+  "Language and Culture III (CPC)": { requiere: ["Language and Culture II (CPC)"], esRequisitoDe: ["Language and Culture IV (CPC)"] },
+  "Language and Culture IV (CPC)": { requiere: ["Language and Culture III (CPC)"], esRequisitoDe: ["English Spanish Contrasts (CPC)"] },
+
+  "Teaching and Learning English Primary I": { requiere: ["English Language IV"], esRequisitoDe: ["Teaching and Learning English Primary II","Práctica Pedagogía en Inglés III"] },
+  "Teaching and Learning English Primary II": { requiere: ["Teaching and Learning English Primary I"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Básica"] },
+
+  "Teaching and Learning English Secondary I": { requiere: ["English Language IV"], esRequisitoDe: ["Teaching and Learning English Secondary II"] },
+  "Teaching and Learning English Secondary II": { requiere: ["Teaching and Learning English Secondary I"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Media"] },
+
+  "Práctica Pedagogía en Inglés I": { requiere: ["Ámbitos del Aprendizaje y el desarrollo"], esRequisitoDe: ["Práctica Pedagogía en Inglés II"] },
+  "Práctica Pedagogía en Inglés II": { requiere: ["Práctica Pedagogía en Inglés I"], esRequisitoDe: ["Práctica Pedagogía en Inglés III"] },
+  "Práctica Pedagogía en Inglés III": { requiere: ["Práctica Pedagogía en Inglés II","Teaching and Learning English Primary I"], esRequisitoDe: ["Práctica Pedagogía en Inglés IV"] },
+  "Práctica Pedagogía en Inglés IV": { requiere: ["Práctica Pedagogía en Inglés III"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Básica","Práctica Profesional Pedagogía en Inglés Educación Media"] },
+
+  "Classroom Research": { requiere: [], esRequisitoDe: ["Seminar"] },
+  "Seminar": { requiere: ["Classroom Research"], esRequisitoDe: [] },
+
+  "Evaluación Inglés Nivel B2": { requiere: [], esRequisitoDe: ["Evaluación Inglés Nivel C1"] },
+  "Evaluación Inglés Nivel C1": { requiere: ["Evaluación Inglés Nivel B2"], esRequisitoDe: ["Examen de Inglés Nivel C1 o Equivalente"] },
+  "Examen de Inglés Nivel C1 o Equivalente": { requiere: ["Evaluación Inglés Nivel C1"], esRequisitoDe: [] },
+
+  "Electivo Formación General": { requiere: [], esRequisitoDe: [] }
+};
 
 function crearMateria(nombre, id) {
   const d = document.createElement("div");
@@ -127,6 +164,31 @@ function crearMateria(nombre, id) {
     localStorage.setItem("estado_malla", JSON.stringify(estado));
     render();
   };
+  // ===== BOTÓN INFO =====
+  const infoBtn = document.createElement("span");
+  infoBtn.className = "info-btn";
+  infoBtn.textContent = "ⓘ";
+
+  const menu = document.createElement("div");
+  menu.className = "info-menu";
+
+  const data = infoRequisitos[nombre] || { requiere: [], esRequisitoDe: [] };
+
+  menu.innerHTML = `
+    <strong>Requiere:</strong><br>
+    ${data.requiere.length ? data.requiere.join("<br>") : "—"}
+    <br><br>
+    <strong>Es requisito de:</strong><br>
+    ${data.esRequisitoDe.length ? data.esRequisitoDe.join("<br>") : "—"}
+  `;
+
+  infoBtn.onclick = e => {
+    e.stopPropagation();
+    menu.classList.toggle("visible");
+  };
+
+  d.appendChild(infoBtn);
+  d.appendChild(menu);
 
   return d;
 }
