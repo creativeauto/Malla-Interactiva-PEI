@@ -214,3 +214,14 @@ button{
   background: rgba(255,255,255,.12);
 }
 
+/* Centrar títulos de año y semestre */
+.titulo-anio,
+.titulo-semestre{
+  text-align: center;
+  width: 100%;
+}
+
+.anio h3,
+.semestre-col h4{
+  text-align: center;
+}
