@@ -312,15 +312,18 @@ button{
   box-shadow: none;
   cursor: default;
 }
+.materia.bloqueada {
+  position: relative;
+  pointer-events: none;
+}
+
 .materia.bloqueada::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>\
-<path d='M20 80 L80 20' stroke='white' stroke-width='6' fill='none' opacity='0.6'/>\
-<path d='M20 20 L80 80' stroke='white' stroke-width='6' fill='none' opacity='0.6'/>\
-</svg>") center/cover no-repeat;
-  pointer-events: none;
-  opacity: .6;
+  background: rgba(20, 10, 35, 0.35); /* ajusta al morado de tu tema */
+  border-radius: inherit;
+}
+.materia {
+  transition: opacity .25s ease, filter .25s ease, transform .15s ease;
 }
