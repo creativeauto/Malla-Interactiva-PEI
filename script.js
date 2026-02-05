@@ -167,15 +167,26 @@ else d.classList.add("bloqueada");
   `;
 
   d.onclick = () => {
-  // Si está aprobado, siempre permitir desmarcar
-  if (estado[id]) {
-    delete estado[id];
-  } 
-  // Si NO está aprobado, solo permitir marcar si cumple requisitos
-  else {
+  const actual = estado[id];
+
+  if (!actual) {
+    // marcar en curso (solo si cumple requisitos)
     if (!puede(nombre)) return;
-    estado[id] = true;
+    estado[id] = "enCurso";
+  } 
+  else if (actual === "enCurso") {
+    // pasar a aprobado
+    estado[id] = "aprobado";
+  } 
+  else {
+    // aprobado -> volver a normal
+    delete estado[id];
   }
+
+  localStorage.setItem("estado_malla", JSON.stringify(estado));
+  render();
+};
+
 
   localStorage.setItem("estado_malla", JSON.stringify(estado));
   render();
