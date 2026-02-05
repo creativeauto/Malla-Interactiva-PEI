@@ -344,3 +344,15 @@ button{
   font-size: .65rem;
   color: #333;
 }
+.info-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.info-menu::-webkit-scrollbar-thumb {
+  background: #C9A7FF;
+  border-radius: 6px;
+}
+
+.info-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
