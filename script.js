@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded",()=>{
-  let filtroSoloAprobados = false;
-
+  
 // Cerrar menus de info al hacer click fuera
 document.addEventListener("click", () => {
   document.querySelectorAll(".info-menu.visible").forEach(menu => {
