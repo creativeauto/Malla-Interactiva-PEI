@@ -166,11 +166,20 @@ function crearMateria(nombre, id) {
   `;
 
   d.onclick = () => {
+  // Si está aprobado, siempre permitir desmarcar
+  if (estado[id]) {
+    delete estado[id];
+  } 
+  // Si NO está aprobado, solo permitir marcar si cumple requisitos
+  else {
     if (!puede(nombre)) return;
-    estado[id] ? delete estado[id] : estado[id] = true;
-    localStorage.setItem("estado_malla", JSON.stringify(estado));
-    render();
-  };
+    estado[id] = true;
+  }
+
+  localStorage.setItem("estado_malla", JSON.stringify(estado));
+  render();
+};
+
   // ===== BOTÓN INFO =====
   const infoBtn = document.createElement("span");
   infoBtn.className = "info-btn";
