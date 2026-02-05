@@ -326,3 +326,14 @@ button{
   border-radius: inherit;
   pointer-events: none;
 }
+.info-menu {
+  max-width: 340px;
+  line-height: 1.35;
+}
+
+.info-descripcion {
+  display: block;
+  margin-top: .25rem;
+  font-size: .65rem;
+  color: #333;
+}
