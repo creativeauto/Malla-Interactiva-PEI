@@ -192,17 +192,15 @@ function crearMateria(nombre, id) {
 
   const data = infoRequisitos[nombre] || { requiere: [], esRequisitoDe: [] };
 
-  menu.innerHTML = `
-  <strong>Requiere:</strong><br>
+ menu.innerHTML = `
+  <strong>Requiere:</strong>
   ${data.requiere.length ? data.requiere.join("<br>") : "—"}
-  <br><br>
 
-  <strong>Es requisito de:</strong><br>
+  <strong>Es requisito de:</strong>
   ${data.esRequisitoDe.length ? data.esRequisitoDe.join("<br>") : "—"}
 
   ${data.descripcion ? `
-    <br><br>
-    <strong>Descripción:</strong><br>
+    <strong>Descripción:</strong>
     <span class="info-descripcion">${data.descripcion}</span>
   ` : ""}
 `;
