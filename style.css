@@ -286,3 +286,29 @@ button{
 .materia.info-abierta {
   z-index: 1000;
 }
+@keyframes pulso {
+  0%   { box-shadow: 0 0 0 rgba(199,125,255, 0.0); }
+  50%  { box-shadow: 0 0 12px rgba(199,125,255, 0.35); }
+  100% { box-shadow: 0 0 0 rgba(199,125,255, 0.0); }
+}
+
+.materia.habilitada {
+  animation: pulso 2.2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+.materia:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+}
+
+.materia:active {
+  transform: scale(0.98);
+}
+
+/* Opcional: evitar hover en ramos bloqueados */
+.materia:not(.habilitada):not(.aprobada):hover {
+  transform: none;
+  box-shadow: none;
+  cursor: default;
+}
