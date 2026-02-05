@@ -152,10 +152,7 @@ function crearMateria(nombre, id) {
   const d = document.createElement("div");
   d.className = "materia";
 
-  const estadoActual = estado[id];
-
-  if (estadoActual === "aprobado") d.classList.add("aprobada");
-  else if (estadoActual === "enCurso") d.classList.add("en-curso");
+  if (estado[id]) d.classList.add("aprobada");
   else if (puede(nombre)) d.classList.add("habilitada");
   else d.classList.add("bloqueada");
 
@@ -170,18 +167,10 @@ function crearMateria(nombre, id) {
   `;
 
   d.onclick = () => {
-    const actual = estado[id];
+    if (!puede(nombre) && !estado[id]) return;
 
-    if (!actual) {
-      if (!puede(nombre)) return;
-      estado[id] = "enCurso";
-    } 
-    else if (actual === "enCurso") {
-      estado[id] = "aprobado";
-    } 
-    else {
-      delete estado[id];
-    }
+    if (estado[id]) delete estado[id];
+    else estado[id] = true;
 
     localStorage.setItem("estado_malla", JSON.stringify(estado));
     render();
@@ -225,7 +214,6 @@ function crearMateria(nombre, id) {
   return d;
 }
 
-
 function actualizarBarra() {
   const totalRamos = estructura.reduce((a, x) => a + x.s1.length + x.s2.length, 0);
 
@@ -237,7 +225,7 @@ function actualizarBarra() {
   });
 
   const aprobados = Object.keys(estado).length;
-  const p = Math.round(aprobados / totalRamos * 100);
+  const p = Math.round((aprobados / totalRamos) * 100);
 
   document.querySelector(".barra-relleno").style.width = p + "%";
   document.querySelector(".progreso-texto").innerHTML =
@@ -308,15 +296,14 @@ function render() {
     [["s1", sem1[i]], ["s2", sem2[i]]].forEach(([s, l]) => {
       const c = document.createElement("div");
       c.className = "semestre-col";
-
       c.innerHTML = `<h4 class="titulo-semestre">${l}</h4>`;
 
       const titulo = c.querySelector(".titulo-semestre");
       titulo.onclick = () => aprobarSemestre(i, s);
 
-      a[s].forEach((m, j) =>
-        c.appendChild(crearMateria(m, `${i}-${s}-${j}|${m}`))
-      );
+      a[s].forEach((m, j) => {
+        c.appendChild(crearMateria(m, `${i}-${s}-${j}|${m}`));
+      });
 
       sems.appendChild(c);
     });
@@ -336,4 +323,3 @@ window.resetear = () => {
 
 render();
 
-});
