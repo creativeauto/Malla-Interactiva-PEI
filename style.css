@@ -326,4 +326,32 @@ button{
   border-radius: inherit;
   pointer-events: none;
 }
+/* ===== Estado: En curso ===== */
+.materia.en-curso{
+  background: #FFE08A;       /* amarillo suave que combina con tu paleta */
+  color: #3C096C;            /* mantiene el morado del texto */
+  border: 2px solid #f1c40f; /* borde amarillo más intenso */
+  position: relative;
+  box-shadow: 0 4px 10px rgba(241,196,15,.35);
+  transform: scale(1.01);
+}
+
+/* Icono de "en curso" (reloj) */
+.materia.en-curso::after {
+  content: "⏳";
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: .85rem;
+  color: #f1c40f;
+  background: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,.2);
+  z-index: 2; /* debajo del menú de info */
+}
 
