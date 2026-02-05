@@ -152,9 +152,12 @@ function crearMateria(nombre, id) {
   const d = document.createElement("div");
   d.className = "materia";
 
-  if (estado[id]) d.classList.add("aprobada");
-else if (puede(nombre)) d.classList.add("habilitada");
-else d.classList.add("bloqueada");
+  const estadoActual = estado[id];
+
+  if (estadoActual === "aprobado") d.classList.add("aprobada");
+  else if (estadoActual === "enCurso") d.classList.add("en-curso");
+  else if (puede(nombre)) d.classList.add("habilitada");
+  else d.classList.add("bloqueada");
 
   const info = infoRamos[nombre] || { sigla: "—", creditos: 0 };
 
@@ -167,30 +170,22 @@ else d.classList.add("bloqueada");
   `;
 
   d.onclick = () => {
-  const actual = estado[id];
+    const actual = estado[id];
 
-  if (!actual) {
-    // marcar en curso (solo si cumple requisitos)
-    if (!puede(nombre)) return;
-    estado[id] = "enCurso";
-  } 
-  else if (actual === "enCurso") {
-    // pasar a aprobado
-    estado[id] = "aprobado";
-  } 
-  else {
-    // aprobado -> volver a normal
-    delete estado[id];
-  }
+    if (!actual) {
+      if (!puede(nombre)) return;
+      estado[id] = "enCurso";
+    } 
+    else if (actual === "enCurso") {
+      estado[id] = "aprobado";
+    } 
+    else {
+      delete estado[id];
+    }
 
-  localStorage.setItem("estado_malla", JSON.stringify(estado));
-  render();
-};
-
-
-  localStorage.setItem("estado_malla", JSON.stringify(estado));
-  render();
-};
+    localStorage.setItem("estado_malla", JSON.stringify(estado));
+    render();
+  };
 
   // ===== BOTÓN INFO =====
   const infoBtn = document.createElement("span");
@@ -211,28 +206,25 @@ else d.classList.add("bloqueada");
   `;
 
   infoBtn.onclick = e => {
-  e.stopPropagation();
+    e.stopPropagation();
 
-  // Cerrar otros menus abiertos
-  document.querySelectorAll(".info-menu.visible").forEach(m => {
-    if (m !== menu) {
-      m.classList.remove("visible");
-      m.parentElement.classList.remove("info-abierta");
-    }
-  });
+    document.querySelectorAll(".info-menu.visible").forEach(m => {
+      if (m !== menu) {
+        m.classList.remove("visible");
+        m.parentElement.classList.remove("info-abierta");
+      }
+    });
 
-  // Toggle del actual
-  menu.classList.toggle("visible");
-  d.classList.toggle("info-abierta", menu.classList.contains("visible"));
-};
-
-
+    menu.classList.toggle("visible");
+    d.classList.toggle("info-abierta", menu.classList.contains("visible"));
+  };
 
   d.appendChild(infoBtn);
   d.appendChild(menu);
 
   return d;
 }
+
 
 function actualizarBarra() {
   const totalRamos = estructura.reduce((a, x) => a + x.s1.length + x.s2.length, 0);
