@@ -385,3 +385,29 @@ button{
 .info-menu::-webkit-scrollbar-track {
   background: transparent;
 }
+/* Menú normal (a la derecha) */
+.info-menu {
+  position: absolute;
+  top: 0;
+  left: 110%;
+  width: 240px;
+  max-height: 200px;
+  overflow-y: auto;
+
+  background: #ffffff;
+  color: #2D1B47;
+  border-radius: 12px;
+  padding: 0.6rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+
+  font-size: 0.75rem;
+  line-height: 1.2;
+  z-index: 50;
+  display: none;
+}
+
+/* 👉 Cuando no cabe a la derecha, se abre a la izquierda */
+.info-menu.izquierda {
+  left: auto;
+  right: 110%;
+}
