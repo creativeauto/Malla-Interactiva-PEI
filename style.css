@@ -411,17 +411,3 @@ button{
   left: auto;
   right: 110%;
 }
-.btn-filtro {
-  background: #2D1B47;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.75rem;
-  cursor: pointer;
-  margin-bottom: 0.5rem;
-}
-
-.btn-filtro.activo {
-  background: #6a4fa3; /* morado más apagado */
-}
