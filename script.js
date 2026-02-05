@@ -1,15 +1,6 @@
 document.addEventListener("DOMContentLoaded",()=>{
   let filtroSoloAprobados = false;
 
-document.getElementById("toggle-aprobados").onclick = () => {
-  filtroSoloAprobados = !filtroSoloAprobados;
-  document.getElementById("toggle-aprobados").classList.toggle("activo", filtroSoloAprobados);
-  document.getElementById("toggle-aprobados").textContent =
-    filtroSoloAprobados ? "Mostrar todos" : "Mostrar solo aprobados";
-
-  render();
-};
-
 // Cerrar menus de info al hacer click fuera
 document.addEventListener("click", () => {
   document.querySelectorAll(".info-menu.visible").forEach(menu => {
@@ -342,11 +333,7 @@ function render() {
       titulo.onclick = () => aprobarSemestre(i, s);
 
       a[s].forEach((m, j) => {
-  const id = `${i}-${s}-${j}|${m}`;
-
-  if (filtroSoloAprobados && !estado[id]) return;
-
-  c.appendChild(crearMateria(m, id));
+  c.appendChild(crearMateria(m, `${i}-${s}-${j}|${m}`));
 });
 
 
