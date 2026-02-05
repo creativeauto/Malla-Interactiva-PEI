@@ -183,9 +183,11 @@ function crearMateria(nombre, id) {
   `;
 
   infoBtn.onclick = e => {
-    e.stopPropagation();
-    menu.classList.toggle("visible");
-  };
+  e.stopPropagation();
+  menu.classList.toggle("visible");
+  d.classList.toggle("info-abierta", menu.classList.contains("visible"));
+};
+
 
   d.appendChild(infoBtn);
   d.appendChild(menu);
