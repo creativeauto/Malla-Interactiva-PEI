@@ -153,7 +153,8 @@ function crearMateria(nombre, id) {
   d.className = "materia";
 
   if (estado[id]) d.classList.add("aprobada");
-  else if (puede(nombre)) d.classList.add("habilitada");
+else if (puede(nombre)) d.classList.add("habilitada");
+else d.classList.add("bloqueada");
 
   const info = infoRamos[nombre] || { sigla: "—", creditos: 0 };
 
