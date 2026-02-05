@@ -11,9 +11,7 @@ h2{
   font-size:1.2rem;
   margin:.5rem 0;
 }
-<button id="toggle-aprobados" class="btn-filtro">
-  Mostrar solo aprobados
-</button>
+
 .malla{
   display:flex;
   gap:.6rem;
