@@ -322,7 +322,7 @@ button{
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(160, 160, 160, 0.55); /* gris suave */
+  background: rgba(93, 76, 124, 0.55);
   border-radius: inherit;
   pointer-events: none;
 }
