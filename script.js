@@ -322,4 +322,3 @@ window.resetear = () => {
 };
 
 render();
-
