@@ -267,24 +267,38 @@ button{
 }
 
 /* Títulos dentro del menú: Requiere, Es requisito de, Descripción */
+/* Títulos del menú */
 .info-menu strong {
-  font-size: 0.72rem;   /* más chico que el texto normal */
+  font-size: 0.72rem;
   font-weight: 600;
-  display: block;
-  margin-bottom: 2px;
+  color: #4b2a7a;       /* morado solo para los títulos */
+  margin: 0 0 2px 0;   /* menos espacio debajo */
+}
+
+/* Contenedor del menú */
+.info-menu {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: #555;         /* texto normal en gris */
 }
 
 /* Texto largo de descripción */
 .info-menu .info-descripcion {
   font-size: 0.7rem;
   line-height: 1.2;
-  color: #444;
+  color: #555;
 }
 
+/* Quita espacio extra entre bloques */
+.info-menu br + br {
+  line-height: 0.6;
+}
 
-.info-menu.visible{
+/* Mostrar menú */
+.info-menu.visible {
   display: block;
 }
+
 /* Asegura capas correctas para el menú de info */
 
 .materia {
