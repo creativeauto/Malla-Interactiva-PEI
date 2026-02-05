@@ -209,7 +209,7 @@ function crearMateria(nombre, id) {
 
 
 
-  infoBtn.onclick = e => {
+ infoBtn.onclick = e => {
   e.stopPropagation();
 
   document.querySelectorAll(".info-menu.visible").forEach(m => {
@@ -223,13 +223,13 @@ function crearMateria(nombre, id) {
   menu.classList.toggle("visible");
 
   if (menu.classList.contains("visible")) {
-    const rect = menu.getBoundingClientRect();
+    const rect = d.getBoundingClientRect();
     const espacioDerecha = window.innerWidth - rect.right;
 
-    if (espacioDerecha < 20) {
-      menu.classList.add("izquierda");   // se abre hacia la izquierda
+    if (espacioDerecha < 300) {  // 300px ≈ ancho del menú + margen
+      menu.classList.add("izquierda");
     } else {
-      menu.classList.remove("izquierda"); // se abre normal
+      menu.classList.remove("izquierda");
     }
   }
 
