@@ -312,9 +312,3 @@ button{
   box-shadow: none;
   cursor: default;
 }
-.materia.bloqueada .materia.bloqueada {
-  opacity: 0.45;
-  filter: saturate(60%);
-  cursor: not-allowed;
-  box-shadow: none;
-}
