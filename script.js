@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded",()=>{
+// Cerrar menus de info al hacer click fuera
+document.addEventListener("click", () => {
+  document.querySelectorAll(".info-menu.visible").forEach(menu => {
+    menu.classList.remove("visible");
+    menu.parentElement.classList.remove("info-abierta");
+  });
+});
 
 const prereq={
   "English Language II":["English Language I"],
@@ -184,9 +191,20 @@ function crearMateria(nombre, id) {
 
   infoBtn.onclick = e => {
   e.stopPropagation();
+
+  // Cerrar otros menus abiertos
+  document.querySelectorAll(".info-menu.visible").forEach(m => {
+    if (m !== menu) {
+      m.classList.remove("visible");
+      m.parentElement.classList.remove("info-abierta");
+    }
+  });
+
+  // Toggle del actual
   menu.classList.toggle("visible");
   d.classList.toggle("info-abierta", menu.classList.contains("visible"));
 };
+
 
 
   d.appendChild(infoBtn);
