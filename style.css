@@ -270,3 +270,19 @@ button{
   text-align: left;
   z-index: 1;
 }
+/* Permitir que los menus flotantes se salgan de las columnas */
+.semestre-col,
+.anio,
+.malla {
+  overflow: visible !important;
+}
+
+/* Elevar la tarjeta cuando el menu está visible */
+.materia:has(.info-menu.visible) {
+  z-index: 1000;
+}
+
+/* Fallback si :has() no está soportado en tu navegador */
+.materia.info-abierta {
+  z-index: 1000;
+}
