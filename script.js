@@ -210,18 +210,32 @@ function crearMateria(nombre, id) {
 
 
   infoBtn.onclick = e => {
-    e.stopPropagation();
+  e.stopPropagation();
 
-    document.querySelectorAll(".info-menu.visible").forEach(m => {
-      if (m !== menu) {
-        m.classList.remove("visible");
-        m.parentElement.classList.remove("info-abierta");
-      }
-    });
+  document.querySelectorAll(".info-menu.visible").forEach(m => {
+    if (m !== menu) {
+      m.classList.remove("visible");
+      m.classList.remove("izquierda");
+      m.parentElement.classList.remove("info-abierta");
+    }
+  });
 
-    menu.classList.toggle("visible");
-    d.classList.toggle("info-abierta", menu.classList.contains("visible"));
-  };
+  menu.classList.toggle("visible");
+
+  if (menu.classList.contains("visible")) {
+    const rect = menu.getBoundingClientRect();
+    const espacioDerecha = window.innerWidth - rect.right;
+
+    if (espacioDerecha < 20) {
+      menu.classList.add("izquierda");   // se abre hacia la izquierda
+    } else {
+      menu.classList.remove("izquierda"); // se abre normal
+    }
+  }
+
+  d.classList.toggle("info-abierta", menu.classList.contains("visible"));
+};
+
 
   d.appendChild(infoBtn);
   d.appendChild(menu);
