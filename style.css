@@ -313,7 +313,17 @@ button{
   cursor: default;
 }
 .materia.bloqueada {
-  filter: grayscale(100%);
-  opacity: 0.5;
+  position: relative;
   cursor: not-allowed;
 }
+
+/* Capa gris SOLO sobre la tarjeta */
+.materia.bloqueada::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(160, 160, 160, 0.55); /* gris suave */
+  border-radius: inherit;
+  pointer-events: none;
+}
+
