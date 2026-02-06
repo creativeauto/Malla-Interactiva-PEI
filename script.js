@@ -36,7 +36,7 @@ const prereq={
 const infoRamos = {
   "English Language I": { sigla: "LET0301", creditos: 12 },
   "Applied Grammar I": { sigla: "LET1331", creditos: 10 },
-  "Ámbitos del Aprendizaje y el desarrollo": { sigla: "EDU0511", creditos: 10 },
+  "Ámbitos del Aprendizaje y el Desarrollo": { sigla: "EDU0511", creditos: 10 },
   "Teoría de la Educación": { sigla: "EDU0311", creditos: 10 },
   "Introduction to Teaching English (CPC)": { sigla: "EIN1001", creditos: 10 },
 
