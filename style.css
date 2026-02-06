@@ -411,3 +411,27 @@ button{
   left: auto;
   right: 110%;
 }
+.progreso-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .4rem;
+}
+
+.progreso-contadores{
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  font-size: .75rem;
+  color: #4A2C7A;
+  line-height: 1.1;
+}
+
+.contador-ramos{
+  font-weight: 600;
+}
+
+.contador-creditos{
+  opacity: .85;
+}
