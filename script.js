@@ -181,6 +181,7 @@ const infoRequisitos = {
   "Seminar": { requiere: ["Classroom Research"], esRequisitoDe: [], descripcion: "" },
   "Práctica Profesional Pedagogía en Inglés Educación Media": { requiere: ["Práctica Pedagogía en Inglés IV", "Teaching and Learning English Secondary II"], esRequisitoDe: [], descripcion: "" },
   "Ética Profesional": { requiere: [], esRequisitoDe: [], descripcion: "" }
+  
 };
 
 let habilitadosAntes = new Set();
