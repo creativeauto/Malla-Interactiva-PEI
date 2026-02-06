@@ -164,8 +164,6 @@ const infoRequisitos = {
 let habilitadosAntes = new Set();
 let accionActual = null; // "aprobar" | "desaprobar" | null
 
-let habilitadosAntes = new Set();
-
 function animarDesbloqueo(materia) {
   materia.classList.remove("desbloqueada-anim");
   void materia.offsetWidth; // fuerza reflow
