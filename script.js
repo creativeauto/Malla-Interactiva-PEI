@@ -119,39 +119,68 @@ let estado = JSON.parse(localStorage.getItem("estado_malla")) || {};
 const aprobado = n => Object.keys(estado).some(id => id.endsWith("|" + n));
 const puede = n => (prereq[n] || []).every(r => aprobado(r));
 const infoRequisitos = {
-  "English Language I": { requiere: [], esRequisitoDe: ["English Language II"], descripcion: "La secuencia de cursos de Lengua Inglesa busca desarrollar, en los primeros cuatro semestres de la Licenciatura, las cuatro habilidades propias del aprendizaje de una lengua extranjera en niveles progresivos de dificultad. Este curso, Lengua Inglesa I, busca consolidar el manejo funcional y pragmático de la lengua extranjera en un nivel intermedio de competencia."},
-  "English Language II": { requiere: ["English Language I"], esRequisitoDe: ["English Language III","Applied Phonetics I"], descripcion: "Lengua Inglesa II busca lograr la adquisición de un manejo funcional y pragmático de la lengua extranjera en un nivel intermedio superior de competencia." },
-  "English Language III": { requiere: ["English Language II"], esRequisitoDe: ["English Language IV"] },
-  "English Language IV": { requiere: ["English Language III"], esRequisitoDe: ["Language and Culture I (CPC)","Teaching and Learning English Primary I","Teaching and Learning English Secondary I"] },
 
-  "Applied Grammar I": { requiere: [], esRequisitoDe: ["Applied Grammar II"] },
-  "Applied Grammar II": { requiere: ["Applied Grammar I"], esRequisitoDe: ["English Spanish Contrasts (CPC)"] },
+  "English Language I": { requiere: [], esRequisitoDe: ["English Language II"], descripcion: "La secuencia de cursos de Lengua Inglesa busca desarrollar, en los primeros cuatro semestres de la Licenciatura, las cuatro habilidades propias del aprendizaje de una lengua extranjera en niveles progresivos de dificultad. Este curso, Lengua Inglesa I, busca consolidar el manejo funcional y pragmático de la lengua extranjera en un nivel intermedio de competencia." },
+  "Applied Grammar I": { requiere: [], esRequisitoDe: ["Applied Grammar II"], descripcion: "" },
+  "Ámbitos del Aprendizaje y el Desarrollo": { requiere: [], esRequisitoDe: ["Práctica Pedagogía en Inglés I"], descripcion: "" },
+  "Teoría de la Educación": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Introduction to Teaching English (CPC)": { requiere: [], esRequisitoDe: [], descripcion: "" },
 
-  "Applied Phonetics I": { requiere: ["English Language II"], esRequisitoDe: ["Applied Phonetics II"] },
-  "Applied Phonetics II": { requiere: ["Applied Phonetics I"], esRequisitoDe: ["English Spanish Contrasts (CPC)"] },
+  "English Language II": { requiere: ["English Language I"], esRequisitoDe: ["English Language III", "Applied Phonetics I"], descripcion: "Lengua Inglesa II busca lograr la adquisición de un manejo funcional y pragmático de la lengua extranjera en un nivel intermedio superior de competencia." },
+  "Applied Grammar II": { requiere: ["Applied Grammar I"], esRequisitoDe: ["English Spanish Contrasts (CPC)"], descripcion: "" },
+  "Aprendizaje y Desarrollo del Escolar": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Práctica Pedagogía en Inglés I": { requiere: ["Ámbitos del Aprendizaje y el Desarrollo"], esRequisitoDe: ["Práctica Pedagogía en Inglés II"], descripcion: "" },
+  "Electivo Formación General I": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Evaluación Inglés Nivel B2": { requiere: [], esRequisitoDe: ["Evaluación Inglés Nivel C1"], descripcion: "" },
 
-  "Language and Culture I (CPC)": { requiere: ["English Language IV"], esRequisitoDe: ["Language and Culture II (CPC)"] },
-  "Language and Culture II (CPC)": { requiere: ["Language and Culture I (CPC)"], esRequisitoDe: ["Language and Culture III (CPC)"] },
-  "Language and Culture III (CPC)": { requiere: ["Language and Culture II (CPC)"], esRequisitoDe: ["Language and Culture IV (CPC)"] },
-  "Language and Culture IV (CPC)": { requiere: ["Language and Culture III (CPC)"], esRequisitoDe: ["English Spanish Contrasts (CPC)"] },
+  "English Language III": { requiere: ["English Language II"], esRequisitoDe: ["English Language IV"], descripcion: "" },
+  "Applied Phonetics I": { requiere: ["English Language II"], esRequisitoDe: ["Applied Phonetics II"], descripcion: "" },
+  "Applied Linguistics and Education": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Educación y Sociedad": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Electivo Formación General II": { requiere: [], esRequisitoDe: [], descripcion: "" },
 
-  "Teaching and Learning English Primary I": { requiere: ["English Language IV"], esRequisitoDe: ["Teaching and Learning English Primary II","Práctica Pedagogía en Inglés III"] },
-  "Teaching and Learning English Primary II": { requiere: ["Teaching and Learning English Primary I"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Básica"] },
+  "English Language IV": { requiere: ["English Language III"], esRequisitoDe: ["Language and Culture I (CPC)", "Teaching and Learning English Primary I", "Teaching and Learning English Secondary I"], descripcion: "" },
+  "Applied Phonetics II": { requiere: ["Applied Phonetics I"], esRequisitoDe: ["English Spanish Contrasts (CPC)"], descripcion: "" },
+  "Evaluación para el Aprendizaje": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Práctica Pedagogía en Inglés II": { requiere: ["Práctica Pedagogía en Inglés I"], esRequisitoDe: ["Práctica Pedagogía en Inglés III"], descripcion: "" },
+  "Electivo Formación General III": { requiere: [], esRequisitoDe: [], descripcion: "" },
 
-  "Teaching and Learning English Secondary I": { requiere: ["English Language IV"], esRequisitoDe: ["Teaching and Learning English Secondary II"] },
-  "Teaching and Learning English Secondary II": { requiere: ["Teaching and Learning English Secondary I"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Media"] },
+  "Language and Culture I (CPC)": { requiere: ["English Language IV"], esRequisitoDe: ["Language and Culture II (CPC)"], descripcion: "" },
+  "Second Language Acquisition": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Curriculum": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Teaching and Learning English Primary I": { requiere: ["English Language IV"], esRequisitoDe: ["Teaching and Learning English Primary II", "Práctica Pedagogía en Inglés III"], descripcion: "" },
+  "Electivo Formación General IV": { requiere: [], esRequisitoDe: [], descripcion: "" },
 
-  "Práctica Pedagogía en Inglés I": { requiere: ["Ámbitos del Aprendizaje y el desarrollo"], esRequisitoDe: ["Práctica Pedagogía en Inglés II"] },
-  "Práctica Pedagogía en Inglés II": { requiere: ["Práctica Pedagogía en Inglés I"], esRequisitoDe: ["Práctica Pedagogía en Inglés III"] },
-  "Práctica Pedagogía en Inglés III": { requiere: ["Práctica Pedagogía en Inglés II","Teaching and Learning English Primary I"], esRequisitoDe: ["Práctica Pedagogía en Inglés IV"] },
-  "Práctica Pedagogía en Inglés IV": { requiere: ["Práctica Pedagogía en Inglés III"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Básica","Práctica Profesional Pedagogía en Inglés Educación Media"] },
+  "Language and Culture II (CPC)": { requiere: ["Language and Culture I (CPC)"], esRequisitoDe: ["Language and Culture III (CPC)"], descripcion: "" },
+  "Diversidad e Inclusión en Educación": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Práctica Pedagogía en Inglés III": { requiere: ["Práctica Pedagogía en Inglés II", "Teaching and Learning English Primary I"], esRequisitoDe: ["Práctica Pedagogía en Inglés IV"], descripcion: "" },
+  "Electivo Formación General V": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Evaluación Inglés Nivel C1": { requiere: ["Evaluación Inglés Nivel B2"], esRequisitoDe: ["Examen de Inglés Nivel C1 o Equivalente"], descripcion: "" },
+  "Teaching and Learning English Secondary I": { requiere: ["English Language IV"], esRequisitoDe: ["Teaching and Learning English Secondary II"], descripcion: "" },
 
-  "Classroom Research": { requiere: [], esRequisitoDe: ["Seminar"] },
-  "Seminar": { requiere: ["Classroom Research"], esRequisitoDe: [] },
+  "Language and Culture III (CPC)": { requiere: ["Language and Culture II (CPC)"], esRequisitoDe: ["Language and Culture IV (CPC)"], descripcion: "" },
+  "Introduction to Literary Studies": { requiere: [], esRequisitoDe: ["Literature for Children (CPC)", "Literature for Teen Readers (CPC)"], descripcion: "" },
+  "Teaching and Learning English Primary II": { requiere: ["Teaching and Learning English Primary I"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Básica"], descripcion: "" },
+  "Electivo Formación General VI": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Electivo Formación General VII": { requiere: [], esRequisitoDe: [], descripcion: "" },
 
-  "Evaluación Inglés Nivel B2": { requiere: [], esRequisitoDe: ["Evaluación Inglés Nivel C1"] },
-  "Evaluación Inglés Nivel C1": { requiere: ["Evaluación Inglés Nivel B2"], esRequisitoDe: ["Examen de Inglés Nivel C1 o Equivalente"] },
-  "Examen de Inglés Nivel C1 o Equivalente": { requiere: ["Evaluación Inglés Nivel C1"], esRequisitoDe: [] },
+  "Language and Culture IV (CPC)": { requiere: ["Language and Culture III (CPC)"], esRequisitoDe: ["English Spanish Contrasts (CPC)"], descripcion: "" },
+  "Classroom Research": { requiere: [], esRequisitoDe: ["Seminar"], descripcion: "" },
+  "Teaching and Learning English Secondary II": { requiere: ["Teaching and Learning English Secondary I"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Media"], descripcion: "" },
+  "Práctica Pedagogía en Inglés IV": { requiere: ["Práctica Pedagogía en Inglés III"], esRequisitoDe: ["Práctica Profesional Pedagogía en Inglés Educación Básica", "Práctica Profesional Pedagogía en Inglés Educación Media"], descripcion: "" },
+  "Examen de Licenciatura en Educación": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Electivo Formación General VIII": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Examen de Inglés Nivel C1 o Equivalente": { requiere: ["Evaluación Inglés Nivel C1"], esRequisitoDe: [], descripcion: "" },
+
+  "English Spanish Contrasts (CPC)": { requiere: ["Language and Culture IV (CPC)", "Applied Grammar II", "Applied Phonetics II"], esRequisitoDe: [], descripcion: "" },
+  "Literature for Children (CPC)": { requiere: ["Introduction to Literary Studies"], esRequisitoDe: [], descripcion: "" },
+  "Gestión y Liderazgo en el Aula": { requiere: [], esRequisitoDe: [], descripcion: "" },
+  "Práctica Profesional Pedagogía en Inglés Educación Básica": { requiere: ["Práctica Pedagogía en Inglés IV", "Teaching and Learning English Primary II"], esRequisitoDe: [], descripcion: "" },
+
+  "Literature for Teen Readers (CPC)": { requiere: ["Introduction to Literary Studies"], esRequisitoDe: [], descripcion: "" },
+  "Seminar": { requiere: ["Classroom Research"], esRequisitoDe: [], descripcion: "" },
+  "Práctica Profesional Pedagogía en Inglés Educación Media": { requiere: ["Práctica Pedagogía en Inglés IV", "Teaching and Learning English Secondary II"], esRequisitoDe: [], descripcion: "" },
+  "Ética Profesional": { requiere: [], esRequisitoDe: [], descripcion: "" }
 
   "Electivo Formación General": { requiere: [], esRequisitoDe: [] }
 };
