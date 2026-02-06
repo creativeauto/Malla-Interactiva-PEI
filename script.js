@@ -262,12 +262,21 @@ function actualizarBarra() {
   });
 
   const aprobados = Object.keys(estado).length;
+  const totalCreditos = Object.values(infoRamos).reduce((a, x) => a + x.creditos, 0);
+
   const p = Math.round((aprobados / totalRamos) * 100);
 
   document.querySelector(".barra-relleno").style.width = p + "%";
-  document.querySelector(".progreso-texto").innerHTML =
-    `Avance de Carrera: <strong>${p}%</strong> (${creditosAprobados} Cr.)`;
+  document.querySelector(".progreso-texto").innerHTML = 
+    `Avance de Carrera: <strong>${p}%</strong>`;
+
+  document.querySelector(".contador-ramos").textContent = 
+    `${aprobados}/${totalRamos} ramos`;
+
+  document.querySelector(".contador-creditos").textContent = 
+    `${creditosAprobados}/${totalCreditos} cr`;
 }
+
 
 function aprobarSemestre(anioIndex, semestreKey) {
   const ramos = estructura[anioIndex][semestreKey];
