@@ -166,9 +166,19 @@ function crearMateria(nombre, id) {
   const d = document.createElement("div");
   d.className = "materia";
 
-  if (estado[id]) d.classList.add("aprobada");
-  else if (puede(nombre)) d.classList.add("habilitada");
-  else d.classList.add("bloqueada");
+  if (estado[id]) {
+  d.classList.add("aprobada");
+} else if (puede(nombre)) {
+  d.classList.add("habilitada");
+
+  // ✨ ANIMACIÓN DE DESBLOQUEO
+  requestAnimationFrame(() => {
+    animarDesbloqueo(d);
+  });
+
+} else {
+  d.classList.add("bloqueada");
+}
 
   const info = infoRamos[nombre] || { sigla: "—", creditos: 0 };
 
@@ -371,4 +381,16 @@ window.resetear = () => {
 render();
 
 });
+function animarDesbloqueo(materia) {
+  
+  materia.classList.remove("desbloqueada-anim");
 
+  
+  void materia.offsetWidth;
+
+  materia.classList.add("desbloqueada-anim");
+
+  setTimeout(() => {
+    materia.classList.remove("desbloqueada-anim");
+  }, 1200);
+}
