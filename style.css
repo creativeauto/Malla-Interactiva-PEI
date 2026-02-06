@@ -1,6 +1,8 @@
 body{
   font-family:system-ui,sans-serif;
-  background:#F6F2FA;
+  background:
+    radial-gradient(circle at top, #6d4bcf 0%, #2b1847 60%),
+    linear-gradient(180deg, #2b1847, #1c102f);
   margin:0;
   padding:.5rem;
   font-size:14px;
