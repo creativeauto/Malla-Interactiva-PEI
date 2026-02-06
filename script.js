@@ -45,31 +45,38 @@ const infoRamos = {
   "Aprendizaje y Desarrollo del Escolar": { sigla: "EDU0315", creditos: 10 },
   "Práctica Pedagogía en Inglés I": { sigla: "EDU0500", creditos: 10 },
   "Evaluación Inglés Nivel B2": { sigla: "—", creditos: 0 },
+  "Electivo Formación General": { sigla: "—", creditos: 10 },
 
   "English Language III": { sigla: "LET1313", creditos: 10 },
   "Applied Phonetics I": { sigla: "LET2311", creditos: 10 },
   "Applied Linguistics and Education": { sigla: "LET2313", creditos: 10 },
   "Educación y Sociedad": { sigla: "EDU0165", creditos: 10 },
+   "Electivo Formación General": { sigla: "—", creditos: 10 },
 
   "English Language IV": { sigla: "LET1314", creditos: 10 },
   "Applied Phonetics II": { sigla: "LET2312", creditos: 10 },
   "Evaluación para el Aprendizaje": { sigla: "EDU0512", creditos: 10 },
   "Práctica Pedagogía en Inglés II": { sigla: "EDU0501", creditos: 10 },
+   "Electivo Formación General": { sigla: "—", creditos: 10 },
 
   "Language and Culture I (CPC)": { sigla: "EIN1002", creditos: 10 },
   "Second Language Acquisition": { sigla: "LET2315", creditos: 10 },
   "Curriculum": { sigla: "EDU0162", creditos: 10 },
   "Teaching and Learning English Primary I": { sigla: "EDU0506", creditos: 10 },
+   "Electivo Formación General": { sigla: "—", creditos: 10 },
 
   "Language and Culture II (CPC)": { sigla: "EIN1003", creditos: 10 },
   "Diversidad e Inclusión en Educación": { sigla: "EDU0317", creditos: 10 },
   "Teaching and Learning English Secondary I": { sigla: "EDU0508", creditos: 10 },
   "Práctica Pedagogía en Inglés III": { sigla: "EDU0502", creditos: 10 },
   "Evaluación Inglés Nivel C1": { sigla: "—", creditos: 0 },
+   "Electivo Formación General": { sigla: "—", creditos: 10 },
 
   "Language and Culture III (CPC)": { sigla: "EIN1004", creditos: 10 },
   "Introduction to Literary Studies": { sigla: "LET1341", creditos: 10 },
   "Teaching and Learning English Primary II": { sigla: "EDU0507", creditos: 10 },
+   "Electivo Formación General": { sigla: "—", creditos: 10 },
+   "Electivo Formación General": { sigla: "—", creditos: 10 },
 
   "Language and Culture IV (CPC)": { sigla: "EIN1005", creditos: 10 },
   "Classroom Research Seminar": { sigla: "EIN1006", creditos: 10 },
