@@ -98,7 +98,7 @@ const infoRamos = {
 
 const estructura=[
  {anio:"Primer Año",
-  s1:["English Language I","Applied Grammar I","Ámbitos del Aprendizaje y el desarrollo","Teoría de la Educación","Introduction to Teaching English (CPC)"],
+  s1:["English Language I","Applied Grammar I","Ámbitos del Aprendizaje y el Desarrollo","Teoría de la Educación","Introduction to Teaching English (CPC)"],
   s2:["English Language II","Applied Grammar II","Aprendizaje y Desarrollo del Escolar","Práctica Pedagogía en Inglés I","Electivo Formación General","Evaluación Inglés Nivel B2"]},
  {anio:"Segundo Año",
   s1:["English Language III","Applied Phonetics I","Applied Linguistics and Education","Educación y Sociedad","Electivo Formación General"],
@@ -108,7 +108,7 @@ const estructura=[
   s2:["Language and Culture II (CPC)","Diversidad e Inclusión en Educación","Teaching and Learning English Secondary I","Práctica Pedagogía en Inglés III","Electivo Formación General","Evaluación Inglés Nivel C1"]},
  {anio:"Cuarto Año",
   s1:["Language and Culture III (CPC)","Introduction to Literary Studies","Teaching and Learning English Primary II","Electivo Formación General","Electivo Formación General"],
-  s2:["Language and Culture IV (CPC)","Classroom Research Seminar","Teaching and Learning English Secondary II","Práctica Pedagogía en Inglés IV","Examen de Licenciatura en Educación","Electivo Formación General","Examen de Inglés Nivel C1 o Equivalente"]},
+  s2:["Language and Culture IV (CPC)","Classroom Research","Teaching and Learning English Secondary II","Práctica Pedagogía en Inglés IV","Examen de Licenciatura en Educación","Electivo Formación General","Examen de Inglés Nivel C1 o Equivalente"]},
  {anio:"Quinto Año",
   s1:["English Spanish Contrasts (CPC)","Literature for Children (CPC)","Gestión y Liderazgo en el Aula","Práctica Profesional Pedagogía en Inglés Educación Básica"],
   s2:["Literature for Teen Readers (CPC)","Seminar","Práctica Profesional Pedagogía en Inglés Educación Media","Ética Profesional"]}
