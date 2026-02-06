@@ -119,13 +119,8 @@ let estado = JSON.parse(localStorage.getItem("estado_malla")) || {};
 const aprobado = n => Object.keys(estado).some(id => id.endsWith("|" + n));
 const puede = n => (prereq[n] || []).every(r => aprobado(r));
 const infoRequisitos = {
-  "English Language I": { 
-    requiere: [], 
-    esRequisitoDe: ["English Language II"],
-    descripcion: "La secuencia de cursos de Lengua Inglesa busca desarrollar, en los primeros cuatro semestres de la Licenciatura, las cuatro habilidades propias del aprendizaje de una lengua extranjera en niveles progresivos de dificultad. Este curso, Lengua Inglesa I, busca consolidar el manejo funcional y pragmático de la lengua extranjera en un nivel intermedio de competencia."
-  },
-
-  "English Language II": { requiere: ["English Language I"], esRequisitoDe: ["English Language III","Applied Phonetics I"] },
+  "English Language I": { requiere: [], esRequisitoDe: ["English Language II"], descripcion: "La secuencia de cursos de Lengua Inglesa busca desarrollar, en los primeros cuatro semestres de la Licenciatura, las cuatro habilidades propias del aprendizaje de una lengua extranjera en niveles progresivos de dificultad. Este curso, Lengua Inglesa I, busca consolidar el manejo funcional y pragmático de la lengua extranjera en un nivel intermedio de competencia."},
+  "English Language II": { requiere: ["English Language I"], esRequisitoDe: ["English Language III","Applied Phonetics I"], descripcion: "Lengua Inglesa II busca lograr la adquisición de un manejo funcional y pragmático de la lengua extranjera en un nivel intermedio superior de competencia." },
   "English Language III": { requiere: ["English Language II"], esRequisitoDe: ["English Language IV"] },
   "English Language IV": { requiere: ["English Language III"], esRequisitoDe: ["Language and Culture I (CPC)","Teaching and Learning English Primary I","Teaching and Learning English Secondary I"] },
 
