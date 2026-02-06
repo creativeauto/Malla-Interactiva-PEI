@@ -161,7 +161,9 @@ const infoRequisitos = {
   "Electivo Formación General": { requiere: [], esRequisitoDe: [] }
 };
 
-// ================== CONTROL DE DESBLOQUEOS ==================
+let habilitadosAntes = new Set();
+let accionActual = null; // "aprobar" | "desaprobar" | null
+
 let habilitadosAntes = new Set();
 
 function animarDesbloqueo(materia) {
@@ -174,7 +176,6 @@ function animarDesbloqueo(materia) {
   }, 1200);
 }
 
-// ================== CREAR MATERIA ==================
 function crearMateria(nombre, id) {
   const d = document.createElement("div");
   d.className = "materia";
@@ -186,8 +187,11 @@ function crearMateria(nombre, id) {
   } else if (puede(nombre)) {
     d.classList.add("habilitada");
 
-    // ✨ SOLO si antes NO estaba habilitada
-    if (!habilitadosAntes.has(id)) {
+    
+    if (
+      accionActual === "aprobar" &&
+      !habilitadosAntes.has(id)
+    ) {
       requestAnimationFrame(() => animarDesbloqueo(d));
     }
 
@@ -208,12 +212,69 @@ function crearMateria(nombre, id) {
   d.onclick = () => {
     if (!puede(nombre) && !estado[id]) return;
 
-    if (estado[id]) delete estado[id];
-    else estado[id] = true;
+    if (estado[id]) {
+      delete estado[id];
+      accionActual = "desaprobar";
+    } else {
+      estado[id] = true;
+      accionActual = "aprobar";
+    }
 
     localStorage.setItem("estado_malla", JSON.stringify(estado));
     render();
+    accionActual = null;
   };
+
+  // ===== BOTÓN INFO =====
+  const infoBtn = document.createElement("span");
+  infoBtn.className = "info-btn";
+  infoBtn.textContent = "ⓘ";
+
+  const menu = document.createElement("div");
+  menu.className = "info-menu";
+
+  const data = infoRequisitos[nombre] || { requiere: [], esRequisitoDe: [] };
+
+  menu.innerHTML = `
+    <strong>Requiere:</strong><br>
+    ${data.requiere.length ? data.requiere.join("<br>") : "—"}
+    <br><br>
+    <strong>Es requisito de:</strong><br>
+    ${data.esRequisitoDe.length ? data.esRequisitoDe.join("<br>") : "—"}
+    ${data.descripcion ? `
+      <br><br>
+      <strong>Descripción:</strong><br>
+      ${data.descripcion}
+    ` : ""}
+  `;
+
+  infoBtn.onclick = e => {
+    e.stopPropagation();
+
+    document.querySelectorAll(".info-menu.visible").forEach(m => {
+      if (m !== menu) {
+        m.classList.remove("visible", "izquierda");
+        m.parentElement.classList.remove("info-abierta");
+      }
+    });
+
+    menu.classList.toggle("visible");
+
+    if (menu.classList.contains("visible")) {
+      const rect = d.getBoundingClientRect();
+      const espacioDerecha = window.innerWidth - rect.right;
+      menu.classList.toggle("izquierda", espacioDerecha < 300);
+    }
+
+    d.classList.toggle("info-abierta", menu.classList.contains("visible"));
+  };
+
+  d.appendChild(infoBtn);
+  d.appendChild(menu);
+
+  return d;
+}
+;
 
   // ===== BOTÓN INFO =====
   const infoBtn = document.createElement("span");
