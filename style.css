@@ -61,16 +61,25 @@ h2{
 }
 
 .materia{
-  background:#3C096C;
-  color:white;
-  border-radius:10px;
-  padding: 26px 12px 16px 12px;   /* ⬅️ más alta, mismo ancho */
-  margin-bottom:.3rem;
-  text-align:center;
-  cursor:pointer;
-  transition:.3s;
-  font-size:.8rem;
-  font-weight:600;
+  background: linear-gradient(
+    135deg,
+    #8b5cf6,
+    #a78bfa
+  );
+  border-radius: 14px;
+  padding: .9rem;
+  box-shadow:
+    0 8px 16px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.2);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.materia:hover{
+  transform: translateY(-3px);
+  box-shadow:
+    0 12px 24px rgba(0,0,0,.35);
+}
+
 }
 
 
