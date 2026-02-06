@@ -79,7 +79,7 @@ const infoRamos = {
    "Electivo Formación General": { sigla: "—", creditos: 10 },
 
   "Language and Culture IV (CPC)": { sigla: "EIN1005", creditos: 10 },
-  "Classroom Research Seminar": { sigla: "EIN1006", creditos: 10 },
+  "Classroom Research": { sigla: "EIN1006", creditos: 10 },
   "Teaching and Learning English Secondary II": { sigla: "EDU0509", creditos: 10 },
   "Práctica Pedagogía en Inglés IV": { sigla: "EDU0503", creditos: 10 },
   "Examen de Licenciatura en Educación": { sigla: "EDU0510", creditos: 0 },
