@@ -179,13 +179,14 @@ function crearMateria(nombre, id) {
   d.className = "materia";
   d.dataset.id = id;
 
+  // ===== ESTADO VISUAL =====
   if (estado[id]) {
     d.classList.add("aprobada");
 
   } else if (puede(nombre)) {
     d.classList.add("habilitada");
 
-    
+    // ✨ SOLO cuando se desbloquea por aprobar
     if (
       accionActual === "aprobar" &&
       !habilitadosAntes.has(id)
@@ -207,6 +208,7 @@ function crearMateria(nombre, id) {
     <div class="materia-creditos">${info.creditos} cr.</div>
   `;
 
+  // ===== CLICK APROBAR / DESAPROBAR =====
   d.onclick = () => {
     if (!puede(nombre) && !estado[id]) return;
 
@@ -272,57 +274,7 @@ function crearMateria(nombre, id) {
 
   return d;
 }
-;
 
-  // ===== BOTÓN INFO =====
-  const infoBtn = document.createElement("span");
-  infoBtn.className = "info-btn";
-  infoBtn.textContent = "ⓘ";
-
-  const menu = document.createElement("div");
-  menu.className = "info-menu";
-
-  const data = infoRequisitos[nombre] || { requiere: [], esRequisitoDe: [] };
-
-  menu.innerHTML = `
-    <strong>Requiere:</strong><br>
-    ${data.requiere.length ? data.requiere.join("<br>") : "—"}
-    <br><br>
-    <strong>Es requisito de:</strong><br>
-    ${data.esRequisitoDe.length ? data.esRequisitoDe.join("<br>") : "—"}
-    ${data.descripcion ? `
-      <br><br>
-      <strong>Descripción:</strong><br>
-      ${data.descripcion}
-    ` : ""}
-  `;
-
-  infoBtn.onclick = e => {
-    e.stopPropagation();
-
-    document.querySelectorAll(".info-menu.visible").forEach(m => {
-      if (m !== menu) {
-        m.classList.remove("visible", "izquierda");
-        m.parentElement.classList.remove("info-abierta");
-      }
-    });
-
-    menu.classList.toggle("visible");
-
-    if (menu.classList.contains("visible")) {
-      const rect = d.getBoundingClientRect();
-      const espacioDerecha = window.innerWidth - rect.right;
-      menu.classList.toggle("izquierda", espacioDerecha < 300);
-    }
-
-    d.classList.toggle("info-abierta", menu.classList.contains("visible"));
-  };
-
-  d.appendChild(infoBtn);
-  d.appendChild(menu);
-
-  return d;
-}
 
 // ================== BARRA DE PROGRESO ==================
 function actualizarBarra() {
