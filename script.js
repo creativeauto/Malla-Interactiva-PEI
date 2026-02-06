@@ -161,24 +161,39 @@ const infoRequisitos = {
   "Electivo Formación General": { requiere: [], esRequisitoDe: [] }
 };
 
+// ================== CONTROL DE DESBLOQUEOS ==================
+let habilitadosAntes = new Set();
 
+function animarDesbloqueo(materia) {
+  materia.classList.remove("desbloqueada-anim");
+  void materia.offsetWidth; // fuerza reflow
+  materia.classList.add("desbloqueada-anim");
+
+  setTimeout(() => {
+    materia.classList.remove("desbloqueada-anim");
+  }, 1200);
+}
+
+// ================== CREAR MATERIA ==================
 function crearMateria(nombre, id) {
   const d = document.createElement("div");
   d.className = "materia";
+  d.dataset.id = id;
 
   if (estado[id]) {
-  d.classList.add("aprobada");
-} else if (puede(nombre)) {
-  d.classList.add("habilitada");
+    d.classList.add("aprobada");
 
-  // ✨ ANIMACIÓN DE DESBLOQUEO
-  requestAnimationFrame(() => {
-    animarDesbloqueo(d);
-  });
+  } else if (puede(nombre)) {
+    d.classList.add("habilitada");
 
-} else {
-  d.classList.add("bloqueada");
-}
+    // ✨ SOLO si antes NO estaba habilitada
+    if (!habilitadosAntes.has(id)) {
+      requestAnimationFrame(() => animarDesbloqueo(d));
+    }
+
+  } else {
+    d.classList.add("bloqueada");
+  }
 
   const info = infoRamos[nombre] || { sigla: "—", creditos: 0 };
 
@@ -210,50 +225,39 @@ function crearMateria(nombre, id) {
 
   const data = infoRequisitos[nombre] || { requiere: [], esRequisitoDe: [] };
 
- menu.innerHTML = `
-  <strong>Requiere:</strong><br>
-  ${data.requiere.length ? data.requiere.join("<br>") : "—"}
-  <br><br>
-
-  <strong>Es requisito de:</strong><br>
-  ${data.esRequisitoDe.length ? data.esRequisitoDe.join("<br>") : "—"}
-
-  ${data.descripcion ? `
+  menu.innerHTML = `
+    <strong>Requiere:</strong><br>
+    ${data.requiere.length ? data.requiere.join("<br>") : "—"}
     <br><br>
-    <strong>Descripción:</strong><br>
-    ${data.descripcion}
-  ` : ""}
-`;
+    <strong>Es requisito de:</strong><br>
+    ${data.esRequisitoDe.length ? data.esRequisitoDe.join("<br>") : "—"}
+    ${data.descripcion ? `
+      <br><br>
+      <strong>Descripción:</strong><br>
+      ${data.descripcion}
+    ` : ""}
+  `;
 
+  infoBtn.onclick = e => {
+    e.stopPropagation();
 
+    document.querySelectorAll(".info-menu.visible").forEach(m => {
+      if (m !== menu) {
+        m.classList.remove("visible", "izquierda");
+        m.parentElement.classList.remove("info-abierta");
+      }
+    });
 
- infoBtn.onclick = e => {
-  e.stopPropagation();
+    menu.classList.toggle("visible");
 
-  document.querySelectorAll(".info-menu.visible").forEach(m => {
-    if (m !== menu) {
-      m.classList.remove("visible");
-      m.classList.remove("izquierda");
-      m.parentElement.classList.remove("info-abierta");
+    if (menu.classList.contains("visible")) {
+      const rect = d.getBoundingClientRect();
+      const espacioDerecha = window.innerWidth - rect.right;
+      menu.classList.toggle("izquierda", espacioDerecha < 300);
     }
-  });
 
-  menu.classList.toggle("visible");
-
-  if (menu.classList.contains("visible")) {
-    const rect = d.getBoundingClientRect();
-    const espacioDerecha = window.innerWidth - rect.right;
-
-    if (espacioDerecha < 300) {  // 300px ≈ ancho del menú + margen
-      menu.classList.add("izquierda");
-    } else {
-      menu.classList.remove("izquierda");
-    }
-  }
-
-  d.classList.toggle("info-abierta", menu.classList.contains("visible"));
-};
-
+    d.classList.toggle("info-abierta", menu.classList.contains("visible"));
+  };
 
   d.appendChild(infoBtn);
   d.appendChild(menu);
@@ -261,6 +265,7 @@ function crearMateria(nombre, id) {
   return d;
 }
 
+// ================== BARRA DE PROGRESO ==================
 function actualizarBarra() {
   const totalRamos = estructura.reduce((a, x) => a + x.s1.length + x.s2.length, 0);
 
@@ -277,17 +282,17 @@ function actualizarBarra() {
   const p = Math.round((aprobados / totalRamos) * 100);
 
   document.querySelector(".barra-relleno").style.width = p + "%";
-  document.querySelector(".progreso-texto").innerHTML = 
+  document.querySelector(".progreso-texto").innerHTML =
     `Avance de Carrera: <strong>${p}%</strong>`;
 
-  document.querySelector(".contador-ramos").textContent = 
+  document.querySelector(".contador-ramos").textContent =
     `${aprobados}/${totalRamos} ramos`;
 
-  document.querySelector(".contador-creditos").textContent = 
+  document.querySelector(".contador-creditos").textContent =
     `${creditosAprobados}/${totalCreditos} cr`;
 }
 
-
+// ================== APROBAR ==================
 function aprobarSemestre(anioIndex, semestreKey) {
   const ramos = estructura[anioIndex][semestreKey];
 
@@ -322,7 +327,6 @@ function aprobarAnio(anioIndex) {
     const s = idx < s1.length ? "s1" : "s2";
     const j = idx < s1.length ? idx : idx - s1.length;
     const id = `${anioIndex}-${s}-${j}|${nombre}`;
-
     if (todosAprobados) delete estado[id];
     else estado[id] = true;
   });
@@ -331,9 +335,12 @@ function aprobarAnio(anioIndex) {
   render();
 }
 
+// ================== RENDER ==================
 function render() {
   const cont = document.getElementById("malla");
   cont.innerHTML = "";
+
+  const nuevosHabilitados = new Set();
 
   const sem1 = ["I", "III", "V", "VII", "IX"];
   const sem2 = ["II", "IV", "VI", "VIII", "X"];
@@ -343,8 +350,7 @@ function render() {
     col.className = "anio";
     col.innerHTML = `<h3 class="titulo-anio">${a.anio}</h3>`;
 
-    const tituloAnio = col.querySelector(".titulo-anio");
-    tituloAnio.onclick = () => aprobarAnio(i);
+    col.querySelector(".titulo-anio").onclick = () => aprobarAnio(i);
 
     const sems = document.createElement("div");
     sems.className = "semestres";
@@ -353,14 +359,13 @@ function render() {
       const c = document.createElement("div");
       c.className = "semestre-col";
       c.innerHTML = `<h4 class="titulo-semestre">${l}</h4>`;
-
-      const titulo = c.querySelector(".titulo-semestre");
-      titulo.onclick = () => aprobarSemestre(i, s);
+      c.querySelector(".titulo-semestre").onclick = () => aprobarSemestre(i, s);
 
       a[s].forEach((m, j) => {
-  c.appendChild(crearMateria(m, `${i}-${s}-${j}|${m}`));
-});
-
+        const id = `${i}-${s}-${j}|${m}`;
+        if (puede(m) && !estado[id]) nuevosHabilitados.add(id);
+        c.appendChild(crearMateria(m, id));
+      });
 
       sems.appendChild(c);
     });
@@ -369,28 +374,16 @@ function render() {
     cont.appendChild(col);
   });
 
+  habilitadosAntes = nuevosHabilitados;
   actualizarBarra();
 }
 
+// ================== RESET ==================
 window.resetear = () => {
   localStorage.removeItem("estado_malla");
   estado = {};
+  habilitadosAntes.clear();
   render();
 };
 
 render();
-
-});
-function animarDesbloqueo(materia) {
-  
-  materia.classList.remove("desbloqueada-anim");
-
-  
-  void materia.offsetWidth;
-
-  materia.classList.add("desbloqueada-anim");
-
-  setTimeout(() => {
-    materia.classList.remove("desbloqueada-anim");
-  }, 1200);
-}
