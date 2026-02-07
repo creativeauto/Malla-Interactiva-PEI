@@ -136,28 +136,9 @@ button{
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(150,150,160,.65);
+  background:rgba(72,58,102,.6);
   border-radius:inherit;
   pointer-events:none;
-}
-
-/* ELECTIVO FORMACIÓN GENERAL */
-
-.materia.electivo-fg{
- background:#FFE9A3;
-  color:#1f2a44;
-}
-
-.materia.electivo-fg.habilitada{
-  background:#FFE9A3;
-  color:#1f2a44;
-  animation:pulso 2.2s ease-in-out infinite;
-}
-
-.materia.electivo-fg.aprobada{
-  background:#FFFDE8;   
-  color:#7A6A1A;   
-  border:2px solid #67c240;
 }
 
 /* ===== CONTENIDO INTERNO MATERIA ===== */
