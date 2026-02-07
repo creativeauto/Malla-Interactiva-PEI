@@ -309,12 +309,20 @@ function crearMateria(nombre, id) {
 function actualizarBarra() {
   const totalRamos = estructura.reduce((a, x) => a + x.s1.length + x.s2.length, 0);
 
-  let creditosAprobados = 0;
-  Object.keys(estado).forEach(id => {
-    const nombre = id.split("|")[1];
-    const info = infoRamos[nombre];
-    if (info) creditosAprobados += info.creditos;
+  let creditosTotales = 0;
+
+estructura.forEach(anio => {
+  ["s1", "s2"].forEach(sem => {
+    anio[sem].forEach(ramo => {
+      if (infoRamos[ramo]) {
+        creditosTotales += infoRamos[ramo].creditos;
+      } else {
+        console.warn("Ramo sin créditos:", ramo);
+      }
+    });
   });
+});
+
 
   const aprobados = Object.keys(estado).length;
   const totalCreditos = Object.values(infoRamos).reduce((a, x) => a + x.creditos, 0);
