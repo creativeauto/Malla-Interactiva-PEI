@@ -307,25 +307,38 @@ function crearMateria(nombre, id) {
 
 // ================== BARRA DE PROGRESO ==================
 function actualizarBarra() {
-  const totalRamos = estructura.reduce(
-    (a, x) => a + x.s1.length + x.s2.length,
-    0
-  );
+  const ramosExcluidos = [
+    "Evaluación Inglés NIvel B2",
+    "Evaluación Inglés Nivel C1",
+    "Examen de Licenciatura en Educación",
+    "Examen de Inglés Nivel C1 o Equivalente"
+  ];
 
+  let totalRamos = 0;
+  let aprobados = 0;
   let creditosTotales = 0;
   let creditosAprobados = 0;
-  let aprobados = 0;
 
   estructura.forEach((anio, i) => {
     ["s1", "s2"].forEach(sem => {
       anio[sem].forEach((ramo, j) => {
         const id = `${i}-${sem}-${j}|${ramo}`;
+        const esExcluido = ramosExcluidos.includes(ramo);
 
         if (infoRamos[ramo]) {
+          // créditos siempre cuentan
           creditosTotales += infoRamos[ramo].creditos;
 
           if (estado[id]) {
             creditosAprobados += infoRamos[ramo].creditos;
+          }
+        }
+
+        // 👇 SOLO ramos NO excluidos cuentan como ramos
+        if (!esExcluido) {
+          totalRamos++;
+
+          if (estado[id]) {
             aprobados++;
           }
         }
@@ -345,6 +358,7 @@ function actualizarBarra() {
   document.querySelector(".contador-creditos").textContent =
     `${creditosAprobados}/${creditosTotales} cr`;
 }
+
 
 // ================== APROBAR ==================
 function aprobarSemestre(anioIndex, semestreKey) {
