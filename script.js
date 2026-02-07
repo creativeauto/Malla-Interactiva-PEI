@@ -202,12 +202,12 @@ function animarDesbloqueo(materia) {
   }, 1200);
 }
 
-function crearMateria(nombre, id) {
+function crearMateria(nombre, id){
   const d = document.createElement("div");
-  d.className = "materia";
-  if (nombre.toLowerCase().includes("Formación General")) {
-  d.classList.add("electivo-fg");
-}
+  d.classList.add("materia");
+  if (nombre.includes("Electivo Formación General")) {
+    d.classList.add("electivo-fg");
+  }
 
 
   d.dataset.id = id;
