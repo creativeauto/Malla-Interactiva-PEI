@@ -155,14 +155,9 @@ button{
 }
 
 .materia.electivo-fg.aprobada{
-  background:#FFE9A3;
+  background:#FFF6CC;  
   color:#1f2a44;
   border:2px solid #67c240;
-}
-
-.materia.electivo-fg.aprobada{
-  background:#FFF1B8;   /* sigue siendo amarillo */
-  color:#1f2a44;
 }
 
 /* ===== CONTENIDO INTERNO MATERIA ===== */
