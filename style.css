@@ -144,18 +144,18 @@ button{
 /* ELECTIVO FORMACIÓN GENERAL */
 
 .materia.electivo-fg{
- background:#FFF1B8;
+ background:#FFE9A3;
   color:#1f2a44;
 }
 
 .materia.electivo-fg.habilitada{
-  background:#FFF1B8;
+  background:#FFE9A3;
   color:#1f2a44;
   animation:pulso 2.2s ease-in-out infinite;
 }
 
 .materia.electivo-fg.aprobada{
-  background:#FFF1B8;
+  background:#FFE9A3;
   color:#1f2a44;
   border:2px solid #67c240;
 }
