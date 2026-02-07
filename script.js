@@ -205,9 +205,10 @@ function animarDesbloqueo(materia) {
 function crearMateria(nombre, id) {
   const d = document.createElement("div");
   d.className = "materia";
-  if (nombre === "Electivo Formación General") {
+  if (nombre.toLowerCase().includes("Formación General")) {
   d.classList.add("electivo-fg");
 }
+
 
   d.dataset.id = id;
 
