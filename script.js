@@ -23,7 +23,7 @@ const prereq={
   "Teaching and Learning English Primary II":["Teaching and Learning English Primary I"],
   "Teaching and Learning English Secondary I":["English Language IV"],
   "Teaching and Learning English Secondary II":["Teaching and Learning English Secondary I"],
-  "Práctica Pedagogía en Inglés I":["Ámbitos del Aprendizaje y el desarrollo"],
+  "Práctica Pedagogía en Inglés I":["Ámbitos del Aprendizaje y el Desarrollo"],
   "Práctica Pedagogía en Inglés II":["Práctica Pedagogía en Inglés I"],
   "Práctica Pedagogía en Inglés III":["Práctica Pedagogía en Inglés II","Teaching and Learning English Primary I"],
   "Práctica Pedagogía en Inglés IV":["Práctica Pedagogía en Inglés III"],
