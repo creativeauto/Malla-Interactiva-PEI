@@ -307,24 +307,31 @@ function crearMateria(nombre, id) {
 
 // ================== BARRA DE PROGRESO ==================
 function actualizarBarra() {
-  const totalRamos = estructura.reduce((a, x) => a + x.s1.length + x.s2.length, 0);
+  const totalRamos = estructura.reduce(
+    (a, x) => a + x.s1.length + x.s2.length,
+    0
+  );
 
- let creditosAprobados = 0;
+  let creditosTotales = 0;
+  let creditosAprobados = 0;
+  let aprobados = 0;
 
-estructura.forEach(anio => {
-  ["s1", "s2"].forEach(sem => {
-    anio[sem].forEach(ramo => {
-      if (estado[ramo]) {
-        creditosAprobados += infoRamos[ramo]?.creditos || 0;
-      }
+  estructura.forEach((anio, i) => {
+    ["s1", "s2"].forEach(sem => {
+      anio[sem].forEach((ramo, j) => {
+        const id = `${i}-${sem}-${j}|${ramo}`;
+
+        if (infoRamos[ramo]) {
+          creditosTotales += infoRamos[ramo].creditos;
+
+          if (estado[id]) {
+            creditosAprobados += infoRamos[ramo].creditos;
+            aprobados++;
+          }
+        }
+      });
     });
   });
-});
-
-
-
-  const aprobados = Object.keys(estado).length;
-  const totalCreditos = Object.values(infoRamos).reduce((a, x) => a + x.creditos, 0);
 
   const p = Math.round((aprobados / totalRamos) * 100);
 
@@ -336,7 +343,7 @@ estructura.forEach(anio => {
     `${aprobados}/${totalRamos} ramos`;
 
   document.querySelector(".contador-creditos").textContent =
-    `${creditosAprobados}/${totalCreditos} cr`;
+    `${creditosAprobados}/${creditosTotales} cr`;
 }
 
 // ================== APROBAR ==================
