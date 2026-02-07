@@ -141,6 +141,12 @@ button{
   pointer-events:none;
 }
 
+.materia.electivo-fg:not(.habilitada):not(.aprobada){
+  background:#A7C7E7;
+  color:#1f2a44;
+}
+
+
 /* ===== CONTENIDO INTERNO MATERIA ===== */
 
 .materia-header{
