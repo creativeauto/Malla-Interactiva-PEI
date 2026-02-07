@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded",()=>{
   
-// Cerrar menus de info al hacer click fuera
 document.addEventListener("click", () => {
   document.querySelectorAll(".info-menu.visible").forEach(menu => {
     menu.classList.remove("visible");
@@ -191,11 +190,11 @@ const infoRequisitos = {
 };
 
 let habilitadosAntes = new Set();
-let accionActual = null; // "aprobar" | "desaprobar" | null
+let accionActual = null; 
 
 function animarDesbloqueo(materia) {
   materia.classList.remove("desbloqueada-anim");
-  void materia.offsetWidth; // fuerza reflow
+  void materia.offsetWidth; 
   materia.classList.add("desbloqueada-anim");
 
   setTimeout(() => {
@@ -208,14 +207,12 @@ function crearMateria(nombre, id) {
   d.className = "materia";
   d.dataset.id = id;
 
-  // ===== ESTADO VISUAL =====
   if (estado[id]) {
     d.classList.add("aprobada");
 
   } else if (puede(nombre)) {
     d.classList.add("habilitada");
 
-    // ✨ SOLO cuando se desbloquea por aprobar
     if (
       accionActual === "aprobar" &&
       !habilitadosAntes.has(id)
@@ -237,7 +234,6 @@ function crearMateria(nombre, id) {
     <div class="materia-creditos">${info.creditos} cr.</div>
   `;
 
-  // ===== CLICK APROBAR / DESAPROBAR =====
   d.onclick = () => {
     if (!puede(nombre) && !estado[id]) return;
 
@@ -254,7 +250,6 @@ function crearMateria(nombre, id) {
     accionActual = null;
   };
 
-  // ===== BOTÓN INFO =====
   const infoBtn = document.createElement("span");
   infoBtn.className = "info-btn";
   infoBtn.textContent = "ⓘ";
@@ -305,7 +300,6 @@ function crearMateria(nombre, id) {
 }
 
 
-// ================== BARRA DE PROGRESO ==================
 function actualizarBarra() {
   const ramosExcluidos = [
     "Evaluación Inglés Nivel B2",
@@ -326,7 +320,7 @@ function actualizarBarra() {
         const esExcluido = ramosExcluidos.includes(ramo);
 
         if (infoRamos[ramo]) {
-          // créditos siempre cuentan
+        
           creditosTotales += infoRamos[ramo].creditos;
 
           if (estado[id]) {
@@ -334,7 +328,6 @@ function actualizarBarra() {
           }
         }
 
-        // 👇 SOLO ramos NO excluidos cuentan como ramos
         if (!esExcluido) {
           totalRamos++;
 
@@ -360,7 +353,6 @@ function actualizarBarra() {
 }
 
 
-// ================== APROBAR ==================
 function aprobarSemestre(anioIndex, semestreKey) {
   const ramos = estructura[anioIndex][semestreKey];
 
@@ -403,7 +395,6 @@ function aprobarAnio(anioIndex) {
   render();
 }
 
-// ================== RENDER ==================
 function render() {
   const cont = document.getElementById("malla");
   cont.innerHTML = "";
@@ -446,7 +437,6 @@ function render() {
   actualizarBarra();
 }
 
-// ================== RESET ==================
 window.resetear = () => {
   localStorage.removeItem("estado_malla");
   estado = {};
