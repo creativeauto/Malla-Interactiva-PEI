@@ -141,11 +141,24 @@ button{
   pointer-events:none;
 }
 
-.materia.electivo-fg:not(.habilitada):not(.aprobada){
+/* ELECTIVO FORMACIÓN GENERAL */
+
+.materia.electivo-fg{
   background:#A7C7E7;
   color:#1f2a44;
 }
 
+.materia.electivo-fg.habilitada{
+  background:#A7C7E7;
+  color:#1f2a44;
+  animation:pulso 2.2s ease-in-out infinite;
+}
+
+.materia.electivo-fg.aprobada{
+  background:#A7C7E7;
+  color:#1f2a44;
+  border:2px solid #67c240;
+}
 
 /* ===== CONTENIDO INTERNO MATERIA ===== */
 
