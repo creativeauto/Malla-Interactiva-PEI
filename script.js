@@ -13,6 +13,7 @@ const prereq={
   "English Language III":["English Language II"],
   "English Language IV":["English Language III"],
   "Applied Grammar II":["Applied Grammar I"],
+  "Applied Phonetics I":["English Language II"],
   "Applied Phonetics II":["Applied Phonetics I"],
   "Language and Culture I (CPC)":["English Language IV"],
   "Language and Culture II (CPC)":["Language and Culture I (CPC)"],
@@ -22,15 +23,20 @@ const prereq={
   "Teaching and Learning English Primary II":["Teaching and Learning English Primary I"],
   "Teaching and Learning English Secondary I":["English Language IV"],
   "Teaching and Learning English Secondary II":["Teaching and Learning English Secondary I"],
+  "Práctica Pedagogía en Inglés I":["Ámbitos del Aprendizaje y el desarrollo"],
   "Práctica Pedagogía en Inglés II":["Práctica Pedagogía en Inglés I"],
-  "Práctica Pedagogía en Inglés III":["Práctica Pedagogía en Inglés II"],
+  "Práctica Pedagogía en Inglés III":["Práctica Pedagogía en Inglés II","Teaching and Learning English Primary I"],
   "Práctica Pedagogía en Inglés IV":["Práctica Pedagogía en Inglés III"],
   "Práctica Profesional Pedagogía en Inglés Educación Básica":[
     "Práctica Pedagogía en Inglés IV","Teaching and Learning English Primary II"],
   "Práctica Profesional Pedagogía en Inglés Educación Media":[
     "Práctica Pedagogía en Inglés IV","Teaching and Learning English Secondary II"],
   "Evaluación Inglés Nivel C1":["Evaluación Inglés Nivel B2"],
-  "Examen de Inglés Nivel C1 o Equivalente":["Evaluación Inglés Nivel C1"]
+  "Examen de Inglés Nivel C1 o Equivalente":["Evaluación Inglés Nivel C1"],
+  "English Spanish Contrasts (CPC)":["Language and Culture IV (CPC)","Applied Grammar II","Applied Phonetics II"],
+  "Literature for Children (CPC)":["Introduction to Literary Studies"],
+  "Literature for Teen Readers (CPC)":["Introduction to Literary Studies"],
+  "Seminar":["Classroom Research"]
 };
 
 const infoRamos = {
