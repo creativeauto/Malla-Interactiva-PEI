@@ -1,3 +1,5 @@
+/* ===== BASE ===== */
+
 body{
   font-family:system-ui,sans-serif;
   background:#F6F2FA;
@@ -12,10 +14,20 @@ h2{
   margin:.5rem 0;
 }
 
+button{
+  margin:.5rem auto;
+  display:block;
+  padding:.4rem .8rem;
+  font-size:.75rem;
+}
+
+/* ===== ESTRUCTURA MALLA ===== */
+
 .malla{
   display:flex;
   gap:.6rem;
   overflow-x:auto;
+  overflow:visible !important;
 }
 
 .anio{
@@ -23,6 +35,7 @@ h2{
   border-radius:14px;
   min-width:320px;
   padding:.5rem;
+  overflow:visible !important;
 }
 
 .anio h3{
@@ -42,6 +55,7 @@ h2{
   background:#4A2C7A;
   border-radius:10px;
   padding:.4rem;
+  overflow:visible !important;
 }
 
 .semestre-col h4{
@@ -51,43 +65,233 @@ h2{
   font-size:.85rem;
 }
 
+/* ===== MATERIAS ===== */
+
 .materia{
   background:#3C096C;
   color:white;
   border-radius:10px;
-  padding: 26px 12px 16px 12px;   /* ⬅️ más alta, mismo ancho */
+  padding:26px 12px 16px 12px;
   margin-bottom:.3rem;
-  text-align:center;
-  cursor:pointer;
-  transition:.3s;
   font-size:.8rem;
   font-weight:600;
+  cursor:pointer;
+  position:relative;
+  text-align:left;
+  z-index:1;
+  transition:transform .15s ease, box-shadow .15s ease, border .15s ease;
 }
 
+.materia:hover{
+  transform:translateY(-2px) scale(1.01);
+  box-shadow:0 6px 14px rgba(0,0,0,.25);
+}
+
+.materia:active{
+  transform:scale(0.98);
+}
+
+.materia:not(.habilitada):not(.aprobada):hover{
+  transform:none;
+  box-shadow:none;
+  cursor:default;
+}
 
 .materia.habilitada{
   background:#C77DFF;
+  animation:pulso 2.2s ease-in-out infinite;
 }
 
 .materia.aprobada{
   background:#EBC9FF;
   color:white;
   border:2px solid #67c240;
-  text-decoration:none;
-  position: relative;
+  box-shadow:0 4px 10px rgba(0,200,83,.35);
+  transform:scale(1.02);
 }
 
+.materia.aprobada::after{
+  content:"✔";
+  position:absolute;
+  top:6px;
+  right:8px;
+  font-size:.9rem;
+  color:#00c853;
+  background:white;
+  border-radius:50%;
+  width:18px;
+  height:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 4px rgba(0,0,0,.2);
+  z-index:2;
+}
 
-button{
-  margin:.5rem auto;
+.materia.bloqueada{
+  cursor:not-allowed;
+}
+
+.materia.bloqueada::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(72,58,102,.6);
+  border-radius:inherit;
+  pointer-events:none;
+}
+
+/* ===== CONTENIDO INTERNO MATERIA ===== */
+
+.materia-header{
   display:block;
-  padding:.4rem .8rem;
-  font-size:.75rem;
 }
 
-/* =========================
-   BARRA DE PROGRESO
-   ========================= */
+.materia-nombre{
+  padding-right:2.4rem;
+  display:block;
+  font-size:.85rem;
+  line-height:1.2;
+}
+
+.materia-sigla{
+  position:absolute;
+  top:6px;
+  right:8px;
+  font-size:.65rem;
+  opacity:.85;
+  white-space:nowrap;
+}
+
+.materia-creditos{
+  position:absolute;
+  bottom:4px;
+  right:6px;
+  font-size:.6rem;
+  opacity:.85;
+}
+
+/* ===== BOTÓN INFO ===== */
+
+.info-btn{
+  position:absolute;
+  top:6px;
+  left:6px;
+  font-size:.75rem;
+  background:white;
+  color:#3C096C;
+  border-radius:50%;
+  width:16px;
+  height:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:none;
+  cursor:pointer;
+  opacity:.7;
+  z-index:5;
+}
+
+.info-btn:hover{
+  opacity:1;
+  transform:scale(1.1);
+}
+
+/* ===== MENÚ INFO ===== */
+
+.info-menu{
+  position:absolute;
+  top:0;
+  left:110%;
+  width:240px;
+  max-height:200px;
+  overflow-y:auto;
+  background:#fff;
+  color:#2D1B47;
+  border-radius:12px;
+  padding:.6rem;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+  font-size:.75rem;
+  line-height:1.2;
+  z-index:50;
+  display:none;
+}
+
+.info-menu.visible{
+  display:block;
+}
+
+.info-menu.izquierda{
+  left:auto;
+  right:110%;
+}
+
+.info-menu strong{
+  font-size:.72rem;
+  font-weight:600;
+  color:#4b2a7a;
+  margin:0 0 2px;
+}
+
+.info-descripcion{
+  display:block;
+  margin-top:.25rem;
+  font-size:.65rem;
+  color:#333;
+}
+
+.info-menu::-webkit-scrollbar{
+  width:6px;
+}
+
+.info-menu::-webkit-scrollbar-thumb{
+  background:#C9A7FF;
+  border-radius:6px;
+}
+
+.info-menu::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.materia:has(.info-menu.visible),
+.materia.info-abierta{
+  z-index:1000;
+}
+
+/* ===== TÍTULOS CLICKEABLES ===== */
+
+.titulo-anio,
+.titulo-semestre{
+  cursor:pointer;
+  user-select:none;
+  border-radius:8px;
+  padding:.15rem .4rem;
+  display:inline-block;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.titulo-anio{
+  background:rgba(255,255,255,.12);
+}
+
+.titulo-semestre{
+  background:rgba(255,255,255,.08);
+}
+
+.titulo-anio:hover,
+.titulo-semestre:hover{
+  background:rgba(255,255,255,.15);
+  transform:translateY(-1px);
+  box-shadow:0 3px 8px rgba(0,0,0,.25);
+}
+
+.titulo-anio:active,
+.titulo-semestre:active{
+  transform:translateY(0);
+  box-shadow:0 1px 3px rgba(0,0,0,.3) inset;
+}
+
+/* ===== PROGRESO ===== */
 
 .progreso-box{
   background:white;
@@ -98,17 +302,40 @@ button{
   box-shadow:0 4px 10px rgba(0,0,0,.08);
 }
 
+.progreso-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:.6rem;
+  margin-bottom:.4rem;
+}
+
 .progreso-texto{
-  text-align:center;
   font-weight:600;
-  margin-bottom:.6rem;
   color:#1f2a44;
+}
+
+.progreso-contadores{
+  display:flex;
+  flex-direction:column;
+  text-align:right;
+  font-size:.75rem;
+  color:#4A2C7A;
+  line-height:1.1;
+}
+
+.contador-ramos{
+  font-weight:600;
+}
+
+.contador-creditos{
+  opacity:.85;
 }
 
 .barra-fondo{
   width:100%;
   height:14px;
-  background:#ede9fe; /* morado muy suave */
+  background:#ede9fe;
   border-radius:999px;
   overflow:hidden;
 }
@@ -116,15 +343,11 @@ button{
 .barra-relleno{
   height:100%;
   position:relative;
-  background: linear-gradient(
-    90deg,
-    #6d28d9,
-    #8b5cf6,
-    #c084fc
-  );
+  background:linear-gradient(90deg,#6d28d9,#8b5cf6,#c084fc);
   border-radius:999px;
   transition:width .45s ease;
 }
+
 .barra-relleno::after{
   content:"";
   position:absolute;
@@ -132,344 +355,30 @@ button{
   left:0;
   width:30%;
   height:100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,.5),
-    transparent
-  );
-  animation: shine 2.5s infinite;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);
+  animation:shine 2.5s infinite;
 }
 
+/* ===== ANIMACIONES ===== */
 
 @keyframes shine{
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(300%); }
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(300%)}
 }
 
-.materia {
-  position: relative;
-  text-align: left;
-  z-index: 1;
+@keyframes pulso{
+  0%{box-shadow:0 0 0 rgba(199,125,255,0)}
+  50%{box-shadow:0 0 12px rgba(199,125,255,.35)}
+  100%{box-shadow:0 0 0 rgba(199,125,255,0)}
 }
 
-.materia-header{
-  display: block;
+@keyframes desbloqueoFlash{
+  0%{box-shadow:0 0 0 rgba(255,255,255,0);transform:scale(1)}
+  30%{box-shadow:0 0 14px rgba(255,255,255,.9);transform:scale(1.03)}
+  60%{box-shadow:0 0 10px rgba(255,255,255,.6)}
+  100%{box-shadow:0 0 0 rgba(255,255,255,0);transform:scale(1)}
 }
 
-
-.materia-nombre{
-  padding-right: 2.4rem;  /* deja espacio para la sigla */
-  display: block;
-  font-size: .85rem;     /* un poco más grande, se lee mejor */
-  line-height: 1.2;
-}
-
-
-.materia-sigla{
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  font-size: .65rem;
-  opacity: .85;
-  white-space: nowrap;
-}
-
-
-.materia-creditos{
-  position: absolute;
-  bottom: 4px;
-  right: 6px;
-  font-size: .6rem;
-  opacity: .85;
-}
-.materia.aprobada::after {
-  content: "✔";
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  font-size: .9rem;
-  color: #00c853;
-  background: white;
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,.2);
-  z-index: 2; /* debajo del menú */
-}
-.materia{
-  transition: transform .15s ease, box-shadow .15s ease, border .15s ease;
-}
-
-.materia.aprobada{
-  box-shadow: 0 4px 10px rgba(0,200,83,.35);
-  transform: scale(1.02);
-}
-/* ===== Botones Año y Semestre (UX) ===== */
-
-.titulo-anio,
-.titulo-semestre{
-  cursor: pointer;
-  user-select: none;
-  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-  border-radius: 8px;
-  padding: .15rem .4rem;
-  display: inline-block;
-}
-
-/* Hover: que se note que es clickeable */
-.titulo-anio:hover,
-.titulo-semestre:hover{
-  background: rgba(255,255,255,.15);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(0,0,0,.25);
-}
-
-/* Active: efecto de presionado */
-.titulo-anio:active,
-.titulo-semestre:active{
-  transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0,0,0,.3) inset;
-}
-
-/* Opcional: darle look más de botón */
-.titulo-semestre{
-  background: rgba(255,255,255,.08);
-}
-
-.titulo-anio{
-  background: rgba(255,255,255,.12);
-}
-.info-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: .3rem;
-  opacity: .7;
-}
-
-.info-btn:hover {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-.info-btn{
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  font-size: .75rem;
-  background: white;
-  color: #3C096C;
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 5;
-}
-
-.info-menu {
-  position: absolute;
-  top: 0;
-  left: 110%;            /* aparece hacia la derecha de la casilla */
-  width: 210px;         /* más angosto */
-  max-height: 170px;    /* más bajo */
-  overflow-y: auto;     /* scroll vertical si el texto es largo */
-
-  background: #ffffff;
-  color: #2D1B47;
-  border-radius: 10px;
-  padding: 0.6rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-
-  font-size: 0.75rem;
-  line-height: 1.25;
-  z-index: 50;
-
-  display: none;
-}
-
-/* Títulos dentro del menú: Requiere, Es requisito de, Descripción */
-/* Títulos del menú */
-.info-menu strong {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #4b2a7a;       /* morado solo para los títulos */
-  margin: 0 0 2px 0;   /* menos espacio debajo */
-}
-
-/* Contenedor del menú */
-.info-menu {
-  font-size: 0.75rem;
-  line-height: 1.2;
-  color: #555;         /* texto normal en gris */
-}
-
-/* Texto largo de descripción */
-.info-menu .info-descripcion {
-  font-size: 0.7rem;
-  line-height: 1.2;
-  color: #555;
-}
-
-/* Quita espacio extra entre bloques */
-.info-menu br + br {
-  line-height: 0.6;
-}
-
-/* Mostrar menú */
-.info-menu.visible {
-  display: block;
-}
-
-/* Asegura capas correctas para el menú de info */
-
-.materia {
-  position: relative;
-  text-align: left;
-  z-index: 1;
-}
-/* Permitir que los menus flotantes se salgan de las columnas */
-.semestre-col,
-.anio,
-.malla {
-  overflow: visible !important;
-}
-
-/* Elevar la tarjeta cuando el menu está visible */
-.materia:has(.info-menu.visible) {
-  z-index: 1000;
-}
-
-/* Fallback si :has() no está soportado en tu navegador */
-.materia.info-abierta {
-  z-index: 1000;
-}
-@keyframes pulso {
-  0%   { box-shadow: 0 0 0 rgba(199,125,255, 0.0); }
-  50%  { box-shadow: 0 0 12px rgba(199,125,255, 0.35); }
-  100% { box-shadow: 0 0 0 rgba(199,125,255, 0.0); }
-}
-
-.materia.habilitada {
-  animation: pulso 2.2s ease-in-out infinite;
-  cursor: pointer;
-}
-
-.materia:hover {
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 6px 14px rgba(0,0,0,.25);
-}
-
-.materia:active {
-  transform: scale(0.98);
-}
-
-/* Opcional: evitar hover en ramos bloqueados */
-.materia:not(.habilitada):not(.aprobada):hover {
-  transform: none;
-  box-shadow: none;
-  cursor: default;
-}
-.materia.bloqueada {
-  position: relative;
-  cursor: not-allowed;
-}
-
-/* Capa gris SOLO sobre la tarjeta */
-.materia.bloqueada::before {
-  content: "";
-  position: absolute;
-  inset: 0;
- background: rgba(72, 58, 102, 0.6);
-  border-radius: inherit;
-  pointer-events: none;
-}
-.info-menu {
-  max-width: 340px;
-  line-height: 1.35;
-}
-
-.info-descripcion {
-  display: block;
-  margin-top: .25rem;
-  font-size: .65rem;
-  color: #333;
-}
-.info-menu::-webkit-scrollbar {
-  width: 6px;
-}
-
-.info-menu::-webkit-scrollbar-thumb {
-  background: #C9A7FF;
-  border-radius: 6px;
-}
-
-.info-menu::-webkit-scrollbar-track {
-  background: transparent;
-}
-/* Menú normal (a la derecha) */
-.info-menu {
-  position: absolute;
-  top: 0;
-  left: 110%;
-  width: 240px;
-  max-height: 200px;
-  overflow-y: auto;
-
-  background: #ffffff;
-  color: #2D1B47;
-  border-radius: 12px;
-  padding: 0.6rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-
-  font-size: 0.75rem;
-  line-height: 1.2;
-  z-index: 50;
-  display: none;
-}
-
-/* 👉 Cuando no cabe a la derecha, se abre a la izquierda */
-.info-menu.izquierda {
-  left: auto;
-  right: 110%;
-}
-.progreso-top{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: .6rem;
-  margin-bottom: .4rem;
-}
-
-.progreso-contadores{
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-  font-size: .75rem;
-  color: #4A2C7A;
-  line-height: 1.1;
-}
-
-.contador-ramos{
-  font-weight: 600;
-}
-
-.contador-creditos{
-  opacity: .85;
-}
-@keyframes desbloqueoFlash {
-  0%   { box-shadow: 0 0 0 rgba(255,255,255,0); transform: scale(1); }
-  30%  { box-shadow: 0 0 14px rgba(255, 255, 255, 0.9); transform: scale(1.03); }
-  60%  { box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); }
-  100% { box-shadow: 0 0 0 rgba(255,255,255,0); transform: scale(1); }
-}
-
-.materia.desbloqueada-anim {
-  animation: desbloqueoFlash 1.2s ease-out;
+.materia.desbloqueada-anim{
+  animation:desbloqueoFlash 1.2s ease-out;
 }
