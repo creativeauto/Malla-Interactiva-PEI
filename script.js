@@ -308,7 +308,7 @@ function crearMateria(nombre, id) {
 // ================== BARRA DE PROGRESO ==================
 function actualizarBarra() {
   const ramosExcluidos = [
-    "Evaluación Inglés NIvel B2",
+    "Evaluación Inglés Nivel B2",
     "Evaluación Inglés Nivel C1",
     "Examen de Licenciatura en Educación",
     "Examen de Inglés Nivel C1 o Equivalente"
