@@ -295,7 +295,7 @@ if (menu.classList.contains("visible")) {
   const viewportHeight = window.innerHeight;
 
   let left = rect.right + 10;
-  let top = rect.top;
+ let top = rect.top + window.scrollY;
 
   if (left + 240 > viewportWidth) {
     left = rect.left - 250;
