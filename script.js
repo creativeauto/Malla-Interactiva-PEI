@@ -289,10 +289,12 @@ function crearMateria(nombre, id){
 
     menu.classList.toggle("visible");
 
-  if (menu.classList.contains("visible")) {
+ if (menu.classList.contains("visible")) {
   const rect = d.getBoundingClientRect();
-  const espacioDerecha = window.innerWidth - rect.right;
-  menu.classList.toggle("izquierda", espacioDerecha < 300);
+  const viewportWidth = document.documentElement.clientWidth;
+  const espacioDerecha = viewportWidth - rect.right;
+
+  menu.classList.toggle("izquierda", espacioDerecha < 260);
 }
     d.classList.toggle("info-abierta", menu.classList.contains("visible"));
   };
