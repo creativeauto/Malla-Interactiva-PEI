@@ -289,15 +289,29 @@ function crearMateria(nombre, id){
 
     menu.classList.toggle("visible");
 
- if (menu.classList.contains("visible")) {
+if (menu.classList.contains("visible")) {
   const rect = d.getBoundingClientRect();
   const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
 
-  if (rect.right + 260 > viewportWidth) {
-    menu.classList.add("izquierda");
-  } else {
-    menu.classList.remove("izquierda");
+  let left = rect.right + 10;
+  let top = rect.top;
+
+  if (left + 240 > viewportWidth) {
+    left = rect.left - 250;
   }
+
+  if (top + 200 > viewportHeight) {
+    top = viewportHeight - 210;
+  }
+
+  if (top < 10) {
+    top = 10;
+  }
+
+  menu.style.left = left + "px";
+  menu.style.top = top + "px";
+}
 }
     d.classList.toggle("info-abierta", menu.classList.contains("visible"));
   };
