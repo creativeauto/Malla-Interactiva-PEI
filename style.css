@@ -200,7 +200,7 @@ button{
 /* ===== MENÚ INFO ===== */
 
 .info-menu{
-  position:absolute;
+  position:fixed;
   top:0;
   left:110%;
   width:240px;
