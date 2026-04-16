@@ -291,8 +291,13 @@ function crearMateria(nombre, id){
 
  if (menu.classList.contains("visible")) {
   const rect = d.getBoundingClientRect();
-  const espacioDerecha = window.innerWidth - rect.right;
-  menu.classList.toggle("izquierda", espacioDerecha < 300);
+  const viewportWidth = window.innerWidth;
+
+  if (rect.right + 260 > viewportWidth) {
+    menu.classList.add("izquierda");
+  } else {
+    menu.classList.remove("izquierda");
+  }
 }
     d.classList.toggle("info-abierta", menu.classList.contains("visible"));
   };
