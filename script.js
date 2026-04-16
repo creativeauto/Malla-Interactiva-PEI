@@ -278,43 +278,43 @@ function crearMateria(nombre, id){
   `;
 
   infoBtn.onclick = e => {
-    e.stopPropagation();
+  e.stopPropagation();
 
-    document.querySelectorAll(".info-menu.visible").forEach(m => {
-      if (m !== menu) {
-        m.classList.remove("visible", "izquierda");
-        m.parentElement.classList.remove("info-abierta");
-      }
-    });
+  document.querySelectorAll(".info-menu.visible").forEach(m => {
+    if (m !== menu) {
+      m.classList.remove("visible", "izquierda");
+      m.parentElement.classList.remove("info-abierta");
+    }
+  });
 
-    menu.classList.toggle("visible");
+  menu.classList.toggle("visible");
 
-if (menu.classList.contains("visible")) {
-  const rect = d.getBoundingClientRect();
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
+  if (menu.classList.contains("visible")) {
+    const rect = d.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
 
-  let left = rect.right + 10;
- let top = rect.top + window.scrollY;
+    let left = rect.right + 10;
+    let top = rect.top + window.scrollY;
 
-  if (left + 240 > viewportWidth) {
-    left = rect.left - 250;
+    if (left + 240 > viewportWidth) {
+      left = rect.left - 250;
+    }
+
+    if (top + 200 > viewportHeight) {
+      top = viewportHeight - 210;
+    }
+
+    if (top < 10) {
+      top = 10;
+    }
+
+    menu.style.left = left + "px";
+    menu.style.top = top + "px";
   }
 
-  if (top + 200 > viewportHeight) {
-    top = viewportHeight - 210;
-  }
-
-  if (top < 10) {
-    top = 10;
-  }
-
-  menu.style.left = left + "px";
-  menu.style.top = top + "px";
-}
-}
-    d.classList.toggle("info-abierta", menu.classList.contains("visible"));
-  };
+  d.classList.toggle("info-abierta", menu.classList.contains("visible"));
+};
 
  d.appendChild(infoBtn);
 document.body.appendChild(menu);
