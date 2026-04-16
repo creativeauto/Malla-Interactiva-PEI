@@ -316,8 +316,8 @@ if (menu.classList.contains("visible")) {
     d.classList.toggle("info-abierta", menu.classList.contains("visible"));
   };
 
-  d.appendChild(infoBtn);
-  d.appendChild(menu);
+ d.appendChild(infoBtn);
+document.body.appendChild(menu);
 
   return d;
 }
