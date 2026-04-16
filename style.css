@@ -27,7 +27,7 @@ button{
   display:flex;
   gap:.6rem;
   overflow-x:auto;
-  overflow:visible !important;
+  overflow-y:visible;
 }
 
 .anio{
