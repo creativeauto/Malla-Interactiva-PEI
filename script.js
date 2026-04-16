@@ -290,11 +290,18 @@ function crearMateria(nombre, id){
     menu.classList.toggle("visible");
 
     if (menu.classList.contains("visible")) {
-      const rect = d.getBoundingClientRect();
-      const espacioDerecha = window.innerWidth - rect.right;
-      menu.classList.toggle("izquierda", espacioDerecha < 300);
-    }
+  const rect = d.getBoundingClientRect();
+  const viewportWidth = document.documentElement.clientWidth;
 
+  let left = rect.right + 10;
+
+  if (left + 240 > viewportWidth) {
+    left = rect.left - 250;
+  }
+
+  menu.style.left = left + "px";
+  menu.style.top = rect.top + "px";
+}
     d.classList.toggle("info-abierta", menu.classList.contains("visible"));
   };
 
