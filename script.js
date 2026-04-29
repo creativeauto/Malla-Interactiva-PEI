@@ -298,17 +298,18 @@ function crearMateria(nombre, id){
     return;
   }
 
-
+  // 👇 abrir menú (ESTO FALTABA)
+  menu.classList.add("visible");
   d.classList.add("info-abierta");
 };
 
-  d.appendChild(infoBtn);
-  d.appendChild(menu);
+d.appendChild(infoBtn);
+d.appendChild(menu);
 
-  return d;
+return d;
+
 }
-
-
+  
 function actualizarBarra() {
   const ramosExcluidos = [
     "Evaluación Inglés Nivel B2",
