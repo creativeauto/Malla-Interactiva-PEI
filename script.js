@@ -293,11 +293,12 @@ function crearMateria(nombre, id){
 
     if (menu.classList.contains("visible")) {
 const rect = d.getBoundingClientRect();
-const mitadPantalla = window.innerWidth / 2;
+const viewportWidth = window.innerWidth; // 🔥 clave para iPhone
 
 menu.classList.remove("izquierda");
 
-if (rect.left > mitadPantalla) {
+// Detecta si está en el lado derecho de la pantalla
+if (rect.left > viewportWidth / 2) {
   menu.classList.add("izquierda");
 }
 }
