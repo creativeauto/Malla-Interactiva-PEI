@@ -291,24 +291,33 @@ function crearMateria(nombre, id){
 
   const isVisible = menu.classList.contains("visible");
 
-  // 👇 cerrar si ya está abierto
+  // cerrar si ya está abierto
   if (isVisible) {
     menu.classList.remove("visible", "izquierda");
     d.classList.remove("info-abierta");
     return;
   }
 
-  // 👇 abrir menú (ESTO FALTABA)
+  // abrir menú
   menu.classList.add("visible");
   d.classList.add("info-abierta");
+
+  // 👇 FORZAR recalculo antes de medir (clave en iPhone)
+  menu.style.left = "110%";
+  menu.style.right = "auto";
+
+  const rect = menu.getBoundingClientRect();
+
+  const espacioDerecha = window.innerWidth - rect.left;
+  const espacioIzquierda = rect.right;
+
+  // 👇 decidir hacia dónde abrir
+  if (espacioDerecha < rect.width && espacioIzquierda > rect.width) {
+    menu.classList.add("izquierda");
+  } else {
+    menu.classList.remove("izquierda");
+  }
 };
-
-d.appendChild(infoBtn);
-d.appendChild(menu);
-
-return d;
-
-}
   
 function actualizarBarra() {
   const ramosExcluidos = [
