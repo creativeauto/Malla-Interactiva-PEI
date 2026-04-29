@@ -421,3 +421,17 @@ button{
   height:14px;
   fill:currentColor; 
 }
+.malla-wrapper{
+  display:inline-block; 
+}
+
+.malla{
+  display:flex;
+  gap:.6rem;
+  overflow-x:auto;
+  width:max-content; 
+}
+.footer-credito{
+  width:100%;
+  min-width:100%; 
+}
