@@ -292,16 +292,20 @@ function crearMateria(nombre, id){
     menu.classList.toggle("visible");
 
     if (menu.classList.contains("visible")) {
-      const rect = d.getBoundingClientRect();
+const rect = d.getBoundingClientRect();
+const scrollX = window.scrollX || window.pageXOffset;
 const viewportWidth = window.innerWidth;
 
 menu.classList.remove("izquierda");
 
-// margen de seguridad
-const margen = 260;
+// posición REAL considerando scroll
+const rightReal = rect.right + scrollX;
 
-// si no cabe a la derecha → lo mando a la izquierda
-if (rect.right + margen > viewportWidth) {
+// ancho del menú
+const menuWidth = menu.offsetWidth || 260;
+
+// si se sale por la derecha → lo mando a la izquierda
+if (rightReal + menuWidth > scrollX + viewportWidth) {
   menu.classList.add("izquierda");
 }
 }
