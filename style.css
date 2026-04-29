@@ -421,3 +421,6 @@ button{
   height:14px;
   fill:currentColor; 
 }
+.materia{
+  width:auto !important;
+}
