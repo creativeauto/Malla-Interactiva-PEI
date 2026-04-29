@@ -291,31 +291,32 @@ function crearMateria(nombre, id){
 
   const isVisible = menu.classList.contains("visible");
 
-  // cerrar si ya está abierto
   if (isVisible) {
     menu.classList.remove("visible", "izquierda");
     d.classList.remove("info-abierta");
     return;
   }
 
-  // abrir menú
+  // 👇 abrir hacia la derecha por defecto
+  menu.classList.remove("izquierda");
   menu.classList.add("visible");
   d.classList.add("info-abierta");
 
-  // 👇 FORZAR recalculo antes de medir (clave en iPhone)
-  menu.style.left = "110%";
-  menu.style.right = "auto";
-
+  // 👇 medir si se sale de la pantalla
   const rect = menu.getBoundingClientRect();
 
-  const espacioDerecha = window.innerWidth - rect.left;
-  const espacioIzquierda = rect.right;
-
-  // 👇 decidir hacia dónde abrir
-  if (espacioDerecha < rect.width && espacioIzquierda > rect.width) {
+  // si se sale por la derecha → abrir hacia la izquierda
+  if (rect.right > window.innerWidth) {
     menu.classList.add("izquierda");
-  } else {
-    menu.classList.remove("izquierda");
+
+    // volver a medir ya cambiado
+    const rect2 = menu.getBoundingClientRect();
+
+    // si aún así se sale por la izquierda → lo pegamos al borde
+    if (rect2.left < 0) {
+      menu.style.left = "0";
+      menu.style.right = "auto";
+    }
   }
 };
   
