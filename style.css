@@ -382,3 +382,46 @@ button{
 .materia.desbloqueada-anim{
   animation:desbloqueoFlash 1.2s ease-out;
 }
+.footer-credito{
+  margin-top:1.5rem;
+  padding:.8rem 1rem;
+  font-size:.75rem;
+  color:#6b7280;
+}
+
+.footer-linea{
+  height:1px;
+  background:#d1d5db;
+  margin-bottom:.6rem;
+  opacity:.6;
+}
+
+.footer-contenido{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+
+.footer-ig{
+  display:flex;
+  gap:.6rem;
+  align-items:center;
+  opacity:.9;
+}
+
+.footer-ig a{
+  color:inherit;
+  text-decoration:none;
+  padding:2px 4px;
+  border-radius:4px;
+}
+
+.footer-ig a:hover{
+  text-decoration:underline;
+}
+
+.footer-ig a:active{
+  background:rgba(0,0,0,.1);
+}
