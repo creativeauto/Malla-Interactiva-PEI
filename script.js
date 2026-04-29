@@ -297,28 +297,36 @@ function crearMateria(nombre, id){
     return;
   }
 
-  // 👇 abrir hacia la derecha por defecto
+  // abrir por defecto a la derecha
   menu.classList.remove("izquierda");
+  menu.style.left = "";
+  menu.style.right = "";
+
   menu.classList.add("visible");
   d.classList.add("info-abierta");
 
-  // 👇 medir si se sale de la pantalla
   const rect = menu.getBoundingClientRect();
 
-  // si se sale por la derecha → abrir hacia la izquierda
+  // si se sale por la derecha → abrir a la izquierda
   if (rect.right > window.innerWidth) {
     menu.classList.add("izquierda");
 
-    // volver a medir ya cambiado
     const rect2 = menu.getBoundingClientRect();
 
-    // si aún así se sale por la izquierda → lo pegamos al borde
+    // si igual se sale → fijarlo dentro de la pantalla
     if (rect2.left < 0) {
       menu.style.left = "0";
       menu.style.right = "auto";
     }
   }
 };
+
+// 👇 ESTO FALTABA (muy importante)
+d.appendChild(infoBtn);
+d.appendChild(menu);
+
+return d;
+}
   
 function actualizarBarra() {
   const ramosExcluidos = [
