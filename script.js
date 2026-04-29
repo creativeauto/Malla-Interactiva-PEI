@@ -292,15 +292,22 @@ function crearMateria(nombre, id){
     menu.classList.toggle("visible");
 
     if (menu.classList.contains("visible")) {
-const rect = d.getBoundingClientRect();
-const viewportWidth = window.innerWidth; // 🔥 clave para iPhone
-
 menu.classList.remove("izquierda");
 
-// Detecta si está en el lado derecho de la pantalla
-if (rect.left > viewportWidth / 2) {
+// 👇 lo mostramos invisible para medir correctamente
+menu.style.visibility = "hidden";
+menu.classList.add("visible");
+
+const rectMenu = menu.getBoundingClientRect();
+const viewportWidth = window.innerWidth;
+
+// 👇 si se sale por la derecha, lo mandamos a la izquierda
+if (rectMenu.right > viewportWidth) {
   menu.classList.add("izquierda");
 }
+
+// 👇 vuelve a mostrarse normal
+menu.style.visibility = "visible";
 }
 
     d.classList.toggle("info-abierta", menu.classList.contains("visible"));
