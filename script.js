@@ -302,6 +302,7 @@ menu.classList.remove("izquierda");
 
 if (espacioDerecha < 260 && espacioIzquierda > 260) {
   menu.classList.add("izquierda");
+  }
 }
 
     d.classList.toggle("info-abierta", menu.classList.contains("visible"));
