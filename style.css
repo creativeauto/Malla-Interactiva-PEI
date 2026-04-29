@@ -421,17 +421,12 @@ button{
   height:14px;
   fill:currentColor; 
 }
-.malla-wrapper{
-  display:inline-block; 
-}
-
-.malla{
-  display:flex;
-  gap:.6rem;
-  overflow-x:auto;
-  width:max-content; 
-}
 .footer-credito{
-  width:100%;
-  min-width:100%; 
+  margin-top:1.5rem;
+  padding:.8rem 1rem;
+  font-size:.75rem;
+  color:#6b7280;
+
+  width:max-content;   
+  min-width:100%;     
 }
