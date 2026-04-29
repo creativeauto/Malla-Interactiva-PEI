@@ -279,39 +279,46 @@ function crearMateria(nombre, id){
     ` : ""}
   `;
 
-  infoBtn.onclick = e => {
-    e.stopPropagation();
+ infoBtn.onclick = e => {
+  e.stopPropagation();
 
-    document.querySelectorAll(".info-menu.visible").forEach(m => {
-      if (m !== menu) {
-        m.classList.remove("visible", "izquierda");
-        m.parentElement.classList.remove("info-abierta");
-      }
-    });
+  document.querySelectorAll(".info-menu.visible").forEach(m => {
+    if (m !== menu) {
+      m.classList.remove("visible", "izquierda");
+      m.parentElement.classList.remove("info-abierta");
+    }
+  });
 
-    menu.classList.toggle("visible");
+  const isVisible = menu.classList.contains("visible");
 
-    if (menu.classList.contains("visible")) {
-menu.classList.remove("izquierda");
+  // 👇 cerrar si ya está abierto
+  if (isVisible) {
+    menu.classList.remove("visible", "izquierda");
+    d.classList.remove("info-abierta");
+    return;
+  }
 
-// 👇 lo mostramos invisible para medir correctamente
-menu.style.visibility = "hidden";
-menu.classList.add("visible");
+  // 👇 abrir menú
+  menu.classList.remove("izquierda");
+  menu.style.visibility = "hidden";
+  menu.classList.add("visible");
 
-const rectMenu = menu.getBoundingClientRect();
-const viewportWidth = window.innerWidth;
+  const rectMenu = menu.getBoundingClientRect();
+  const rectContenedor = document.querySelector(".malla").getBoundingClientRect();
 
-// 👇 si se sale por la derecha, lo mandamos a la izquierda
-if (rectMenu.right > viewportWidth) {
-  menu.classList.add("izquierda");
-}
+  // 👉 si se sale por la derecha
+  if (rectMenu.right > rectContenedor.right) {
+    menu.classList.add("izquierda");
+  }
 
-// 👇 vuelve a mostrarse normal
-menu.style.visibility = "visible";
-}
+  // 👉 si se sale por la izquierda
+  if (rectMenu.left < rectContenedor.left) {
+    menu.classList.remove("izquierda");
+  }
 
-    d.classList.toggle("info-abierta", menu.classList.contains("visible"));
-  };
+  menu.style.visibility = "visible";
+  d.classList.add("info-abierta");
+};
 
   d.appendChild(infoBtn);
   d.appendChild(menu);
