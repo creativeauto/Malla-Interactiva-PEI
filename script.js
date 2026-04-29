@@ -293,16 +293,17 @@ function crearMateria(nombre, id){
 
     if (menu.classList.contains("visible")) {
       const rect = d.getBoundingClientRect();
-const viewportWidth = document.documentElement.clientWidth;
-
-const espacioDerecha = viewportWidth - rect.right;
-const espacioIzquierda = rect.left;
+const viewportWidth = window.innerWidth;
 
 menu.classList.remove("izquierda");
 
-if (espacioDerecha < 260 && espacioIzquierda > 260) {
+// margen de seguridad
+const margen = 260;
+
+// si no cabe a la derecha → lo mando a la izquierda
+if (rect.right + margen > viewportWidth) {
   menu.classList.add("izquierda");
-  }
+}
 }
 
     d.classList.toggle("info-abierta", menu.classList.contains("visible"));
