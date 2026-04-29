@@ -425,16 +425,3 @@ button{
 .materia{
   width:auto !important;
 }
-/* columnas de la izquierda → menú a la derecha */
-.anio:nth-child(1) .info-menu,
-.anio:nth-child(2) .info-menu {
-  left:110%;
-  right:auto;
-}
-
-/* columnas de la derecha → menú a la izquierda */
-.anio:nth-child(4) .info-menu,
-.anio:nth-child(5) .info-menu {
-  left:auto;
-  right:110%;
-}
