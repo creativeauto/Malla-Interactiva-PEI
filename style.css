@@ -425,3 +425,8 @@ button{
 .footer-ig a:active{
   background:rgba(0,0,0,.1);
 }
+.ig-icon{
+  width:14px;
+  height:14px;
+  fill:currentColor; 
+}
