@@ -239,21 +239,23 @@ function crearMateria(nombre, id){
     <div class="materia-creditos">${info.creditos} cr.</div>
   `;
 
-  d.onclick = () => {
-    if (!puede(nombre) && !estado[id]) return;
+  d.onclick = (e) => {
+  if (e.target.closest(".info-btn") || e.target.closest(".info-menu")) return;
 
-    if (estado[id]) {
-      delete estado[id];
-      accionActual = "desaprobar";
-    } else {
-      estado[id] = true;
-      accionActual = "aprobar";
-    }
+  if (!puede(nombre) && !estado[id]) return;
 
-    localStorage.setItem("estado_malla", JSON.stringify(estado));
-    render();
-    accionActual = null;
-  };
+  if (estado[id]) {
+    delete estado[id];
+    accionActual = "desaprobar";
+  } else {
+    estado[id] = true;
+    accionActual = "aprobar";
+  }
+
+  localStorage.setItem("estado_malla", JSON.stringify(estado));
+  render();
+  accionActual = null;
+};
 
   const infoBtn = document.createElement("span");
   infoBtn.className = "info-btn";
