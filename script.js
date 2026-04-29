@@ -293,19 +293,11 @@ function crearMateria(nombre, id){
 
     if (menu.classList.contains("visible")) {
 const rect = d.getBoundingClientRect();
-const scrollX = window.scrollX || window.pageXOffset;
-const viewportWidth = window.innerWidth;
+const mitadPantalla = window.innerWidth / 2;
 
 menu.classList.remove("izquierda");
 
-// posición REAL considerando scroll
-const rightReal = rect.right + scrollX;
-
-// ancho del menú
-const menuWidth = menu.offsetWidth || 260;
-
-// si se sale por la derecha → lo mando a la izquierda
-if (rightReal + menuWidth > scrollX + viewportWidth) {
+if (rect.left > mitadPantalla) {
   menu.classList.add("izquierda");
 }
 }
