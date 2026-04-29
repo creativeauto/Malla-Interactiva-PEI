@@ -298,25 +298,7 @@ function crearMateria(nombre, id){
     return;
   }
 
-  // 👇 abrir menú
-  menu.classList.remove("izquierda");
-  menu.style.visibility = "hidden";
-  menu.classList.add("visible");
 
-  const rectMenu = menu.getBoundingClientRect();
-  const rectContenedor = document.querySelector(".malla").getBoundingClientRect();
-
-  // 👉 si se sale por la derecha
-  if (rectMenu.right > rectContenedor.right) {
-    menu.classList.add("izquierda");
-  }
-
-  // 👉 si se sale por la izquierda
-  if (rectMenu.left < rectContenedor.left) {
-    menu.classList.remove("izquierda");
-  }
-
-  menu.style.visibility = "visible";
   d.classList.add("info-abierta");
 };
 
