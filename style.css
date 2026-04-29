@@ -421,12 +421,3 @@ button{
   height:14px;
   fill:currentColor; 
 }
-.footer-credito{
-  margin-top:1.5rem;
-  padding:.8rem 1rem;
-  font-size:.75rem;
-  color:#6b7280;
-
-  width:max-content;   
-  min-width:100%;     
-}
